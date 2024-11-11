@@ -6,27 +6,13 @@ This repository contains UML diagrams created with **PlantUML** to illustrate va
 
 This repository currently contains the following `.puml` files:
 
-### 1. **sign_in_flow.puml**
-A UML sequence diagram detailing the user sign-in process for a generic web application. It illustrates interactions between the user, frontend interface, and backend server components, including:
-- Form submission
-- Authentication and validation
-- Error handling and success flows
-
-### 2. **registration_use_case.puml**
+### 1. **registration_use_case.puml**
 A UML use case diagram for a generic user registration and verification flow. It models the interactions involved in user registration, from form display to email verification. Key components include:
 - Displaying the registration form
 - Sending and verifying email for account validation
 - Error handling for invalid verification attempts
 
-### 3. **microservice_architecture.puml**
-A UML component diagram representing the architecture of a microservice application hosted on Azure's Service Fabric. It illustrates the interactions between various components, including:
-- Microservice code and unit testing
-- Service Fabric cluster deployment
-- Interaction with multiple Azure services such as storage, security, compute, networking, and monitoring
-- API management and real-time communication via WebSocket
-- Continuous integration and deployment using Azure DevOps
-
-### 4. **organization_class_diagram.puml**
+### 2. **organization_class_diagram.puml**
 A **Class Diagram** representing the structure of an **organization** system. The diagram includes classes like `Person`, `Employee`, `Manager`, `TeamLead`, `Department`, and related concepts such as `Address` and `Payroll`. It showcases:
 - Inheritance relationships (e.g., `Employee` and `Manager` inherit from `Person`).
 - Composition (e.g., `Department` contains `Employee` objects).
@@ -35,6 +21,20 @@ A **Class Diagram** representing the structure of an **organization** system. Th
 - Use of interfaces (e.g., `IWorker<T>`).
   
 This class diagram models a complex organizational structure, detailing how employees, managers, and various supporting systems interact.
+
+### 3. **sign_in_flow.puml**
+A UML sequence diagram detailing the user sign-in process for a generic web application. It illustrates interactions between the user, frontend interface, and backend server components, including:
+- Form submission
+- Authentication and validation
+- Error handling and success flows
+
+### 4. **microservice_architecture.puml**
+A UML component diagram representing the architecture of a microservice application hosted on Azure's Service Fabric. It illustrates the interactions between various components, including:
+- Microservice code and unit testing
+- Service Fabric cluster deployment
+- Interaction with multiple Azure services such as storage, security, compute, networking, and monitoring
+- API management and real-time communication via WebSocket
+- Continuous integration and deployment using Azure DevOps
 
 This repository will grow with additional diagrams, covering more scenarios and design structures over time.
 
