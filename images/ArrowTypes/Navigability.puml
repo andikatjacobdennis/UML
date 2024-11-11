@@ -1,0 +1,9 @@
+@startuml
+class Department {
+}
+
+class Employee {
+}
+
+Department --> Employee : manages
+@enduml
