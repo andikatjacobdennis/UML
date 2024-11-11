@@ -1,0 +1,9 @@
+@startuml
+interface IWorker {
+}
+
+class Manager {
+}
+
+Manager ..|> IWorker : implements
+@enduml
