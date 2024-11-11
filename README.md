@@ -38,7 +38,7 @@ To view and modify these `.puml` files, you can use PlantUML with any text edito
 To get a local copy of this repository, run:
 
 ```bash
-git clone https://github.com/yourusername/UML.git
+git clone https://github.com/andikatjacobdennis/UML.git
 ```
 
 ## Rendering UML Diagrams
