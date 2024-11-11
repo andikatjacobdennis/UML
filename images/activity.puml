@@ -1,0 +1,35 @@
+@startuml
+|Shopper|
+start
+:Enter shopping center;
+
+fork
+  |Greeter|
+  :Smile at Shopper;
+fork again
+  |Shopper|
+  :Smile back at Greeter;
+endfork
+
+|Greeter|
+:Ask if Shopper wants a shopping cart;
+
+|Shopper|
+:Decide if to take cart;
+
+if (Agree to take cart?) then (yes)
+  :Get shopping cart;
+  :Proceed with shopping;
+else (no)
+  :Do not take cart;
+  :Proceed without cart;
+endif
+
+|Greeter|
+:End interaction;
+
+|Shopper|
+:Finish shopping;
+
+stop
+@enduml
