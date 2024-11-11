@@ -61,14 +61,6 @@ This will create image files in the same directory, which you can open to view t
 
 Below is a brief description of the included `.puml` diagrams:
 
-- **sign_in_flow.puml**: This sequence diagram depicts the steps in a user sign-in process.
-    - User submits the sign-in form.
-    - Form validation and parameter checking on the client side.
-    - Authentication request sent to backend services.
-    - Response handling, including success and error messages.
-
-   ![sign_in_flow.png](images/sign_in_flow.png) *(Example rendered output of the sign-in flow)*
-
 - **registration_use_case.puml**: This use case diagram represents the user registration and email verification process for a generic application.
     - **Actors**: 
         - *Visitor*: Initiates registration, completes verification steps.
@@ -82,6 +74,14 @@ Below is a brief description of the included `.puml` diagrams:
         - Includes conditional handling for incorrect verification attempts.
 
    ![registration_use_case.png](images/registration_use_case.png) *(Example rendered output of the registration use case)*
+
+- **sign_in_flow.puml**: This sequence diagram depicts the steps in a user sign-in process.
+    - User submits the sign-in form.
+    - Form validation and parameter checking on the client side.
+    - Authentication request sent to backend services.
+    - Response handling, including success and error messages.
+
+   ![sign_in_flow.png](images/sign_in_flow.png) *(Example rendered output of the sign-in flow)*
 
 ## Contributing
 
