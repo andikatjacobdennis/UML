@@ -114,38 +114,7 @@ This use case diagram represents the user registration and email verification pr
 
 ---
 
-### **2. sign_in_flow.puml**
-
-This sequence diagram depicts the steps in a user sign-in process.
-
-- **Steps**:
-  - User submits the sign-in form.
-  - Form validation and parameter checking on the client side.
-  - Authentication request sent to backend services.
-  - Response handling, including success and error messages.
-
-![sign_in_flow.png](images/sign_in_flow.png)  
-*Example rendered output of the sign-in flow.*
-
----
-
-### **3. microservice_architecture.puml**
-
-This component diagram represents a microservice architecture deployed on Azure Service Fabric.
-
-- **Components**:
-  - Microservice development, testing, and deployment via Service Fabric.
-  - Integration with Azure services such as storage, security (Azure AD, Key Vault), compute (Azure Functions, Container Instances), and more.
-  - Use of WebSocket for real-time updates, Message Queues, and Event Topics for event-driven interactions.
-  - Monitoring via Azure Monitor and Application Insights.
-  - CI/CD pipeline automation using Azure DevOps.
-
-![microservice_architecture.png](images/microservice_architecture.png)  
-*Example rendered output of the microservice architecture.*
-
----
-
-### **4. organization_class_diagram.puml**
+### **2. organization_class_diagram.puml**
 
 This class diagram illustrates the organizational structure, with classes such as `Person`, `Employee`, `Manager`, `TeamLead`, `Department`, and `Address`, showcasing relationships like inheritance, composition, dependency, and event handling.
 
@@ -161,6 +130,37 @@ This class diagram illustrates the organizational structure, with classes such a
 
 ![organization_class_diagram.png](images/organization_class_diagram.png)  
 *Example rendered output of the organization class diagram.*
+
+---
+
+### **3. sign_in_flow.puml**
+
+This sequence diagram depicts the steps in a user sign-in process.
+
+- **Steps**:
+  - User submits the sign-in form.
+  - Form validation and parameter checking on the client side.
+  - Authentication request sent to backend services.
+  - Response handling, including success and error messages.
+
+![sign_in_flow.png](images/sign_in_flow.png)  
+*Example rendered output of the sign-in flow.*
+
+---
+
+### **4. microservice_architecture.puml**
+
+This component diagram represents a microservice architecture deployed on Azure Service Fabric.
+
+- **Components**:
+  - Microservice development, testing, and deployment via Service Fabric.
+  - Integration with Azure services such as storage, security (Azure AD, Key Vault), compute (Azure Functions, Container Instances), and more.
+  - Use of WebSocket for real-time updates, Message Queues, and Event Topics for event-driven interactions.
+  - Monitoring via Azure Monitor and Application Insights.
+  - CI/CD pipeline automation using Azure DevOps.
+
+![microservice_architecture.png](images/microservice_architecture.png)  
+*Example rendered output of the microservice architecture.*
 
 ---
 
