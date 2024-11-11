@@ -1,0 +1,9 @@
+@startuml
+class Person {
+}
+
+class Employee {
+}
+
+Employee --|> Person : inherits
+@enduml
