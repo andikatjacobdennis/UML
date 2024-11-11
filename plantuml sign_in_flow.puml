@@ -1,6 +1,6 @@
 @startuml
 
-title User Sign-In Process Flow
+title User Sign-In Process Flow (UML 2.5)
 
 actor User as user
 participant "formSign.cs" as form <<Form Controller>>
@@ -20,41 +20,46 @@ box "C# Server" #LightGreen
     participant security
 end box
 
-note over user: User initiates sign-in request
+== User Initiates Sign-In ==
 
 user -> form : submitSignIn()
 activate form
 form -> form : getParameters()
 form -> form : result = checkFields()
 
-note over form: Verifies form fields for completeness
+note right of form
+    Verifies form fields for completeness.
+end note
 
-' Start a new page after initial steps
-'newpage
+' New page or section for main authentication flow
+== Authentication Flow ==
 
 autonumber 10
 
-alt result
+alt "Fields Validation Passed" result
 
     form -> controller : formSignIn(JSON: { "email": email, "password": pwd })
     activate controller
     
-    ' Loop block for retrying failed authentication
-    loop Retry Authentication (Max 3 Attempts)
+    loop "Retry Authentication (Max 3 Attempts)"
         controller -> controller : result = checkFields()
         
         autonumber 20
         
-        alt result
+        alt "Authentication Successful" result
             controller -> secure : Secure.Authenticate(JSON: { "email": email, "password": pwd, "remember": true })
             activate secure
             
-            note right of secure: Authenticates user credentials asynchronously
+            note right of secure
+                Asynchronously authenticates user credentials.
+            end note
             
             secure ->> security : OnAuthenticated()
             activate security
             
-            note over security: Security validation completed
+            note right of security
+                Security validation completed.
+            end note
             
             security --> form : renderJSON(0)  ' Synchronous response
             deactivate security
@@ -63,19 +68,23 @@ alt result
             form --> user : display main page
             deactivate form
             
-            note over user: User sees the main page on successful login
+            note over user
+                User sees the main page on successful login.
+            end note
             
-        else !result
+        else "Authentication Failed"
             controller --> form : renderJSON(1)
             deactivate controller
             form --> user : display error
             
-            note over user: Error message is displayed on failed login
+            note over user
+                Error message is displayed on failed login.
+            end note
             
         end
     end
     
-else !result
+else "Fields Validation Failed"
     form --> user : display error
     deactivate form
 end
