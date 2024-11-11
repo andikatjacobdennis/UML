@@ -1,3 +1,7 @@
+Here's an updated version of the README, incorporating the new PlantUML diagram you mentioned for the microservice architecture:
+
+---
+
 # UML Diagrams Repository
 
 This repository contains UML diagrams created with PlantUML to illustrate various software design processes. Each `.puml` file represents a different flow or structure, intended to help visualize and document software architecture, interaction flows, and other important design aspects.
@@ -14,6 +18,13 @@ This repo currently contains the following `.puml` files:
   - Displaying the registration form
   - Sending and verifying email for account validation
   - Error handling for invalid verification attempts
+
+- **microservice_architecture.puml** - A UML component diagram representing the architecture of a microservice application hosted on Azure's Service Fabric. The diagram illustrates the interactions between various components, including:
+  - Microservice code and unit testing
+  - Service Fabric cluster deployment
+  - Interaction with multiple Azure services such as storage, security, compute, networking, and monitoring
+  - API management and real-time communication via WebSocket
+  - Continuous integration and deployment using Azure DevOps
 
 This repository will grow with additional diagrams, covering more scenarios and design structures over time.
 
@@ -46,6 +57,7 @@ Once you have the repository cloned, you can render the `.puml` files using Plan
 ```bash
 plantuml sign_in_flow.puml
 plantuml registration_use_case.puml
+plantuml microservice_architecture.puml
 ```
 
 This will create image files in the same directory, which you can open to view the diagrams.
@@ -53,7 +65,7 @@ This will create image files in the same directory, which you can open to view t
 ### Using Visual Studio Code
 
 1. Install the [PlantUML extension for VS Code](https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml).
-2. Open any `.puml` file (e.g., `sign_in_flow.puml` or `registration_use_case.puml`) in VS Code.
+2. Open any `.puml` file (e.g., `sign_in_flow.puml`, `registration_use_case.puml`, or `microservice_architecture.puml`) in VS Code.
 3. Open the PlantUML preview pane (`Alt + D` on Windows/Linux or `Cmd + Shift + P` on Mac, then type “PlantUML: Preview Current Diagram”).
 4. You should see the rendered UML diagram in real-time.
 
@@ -83,9 +95,23 @@ Below is a brief description of the included `.puml` diagrams:
 
    ![sign_in_flow.png](images/sign_in_flow.png) *(Example rendered output of the sign-in flow)*
 
+- **microservice_architecture.puml**: This component diagram represents a microservice architecture deployed on Azure Service Fabric.
+    - **Components**:
+        - Microservice development, testing, and deployment via Service Fabric.
+        - Integration with Azure services such as storage, security (Azure AD, Key Vault), compute (Azure Functions, Container Instances), and more.
+        - Use of WebSocket for real-time updates, Message Queues, and Event Topics for event-driven interactions.
+        - Monitoring via Azure Monitor and Application Insights.
+        - CI/CD pipeline automation using Azure DevOps.
+
+   ![microservice_architecture.png](images/microservice_architecture.png) *(Example rendered output of the microservice architecture)*
+
 ## Contributing
 
 Contributions are welcome! If you want to add or improve a diagram:
 1. Fork this repository.
 2. Make your changes or add new `.puml` files.
 3. Submit a pull request with a description of the update.
+
+---
+
+This updated README includes a new diagram for the microservice architecture, showcasing a comprehensive deployment to Azure's Service Fabric and integration with several Azure services. Let me know if you need further adjustments!
