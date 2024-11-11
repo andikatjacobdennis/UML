@@ -3,10 +3,10 @@
 title User Sign-In Process Flow
 
 actor User as user
-participant "formSign.js" as form <<Form Controller>>
-participant "Sign.java" as controller <<(C,#ADD1B2) Form Controller>>
-participant "Secure.java" as secure <<(C,#ADD1B2) authentication>>
-participant "Security.java" as security <<(C,#ADD1B2) security>>
+participant "formSign.cs" as form <<Form Controller>>
+participant "Sign.cs" as controller <<(C,#ADD1B2) Form Controller>>
+participant "Secure.cs" as secure <<(C,#ADD1B2) Authentication>>
+participant "Security.cs" as security <<(C,#ADD1B2) Security>>
 
 autonumber 1
 
@@ -14,7 +14,7 @@ box "Web Application" #LightBlue
     participant form
 end box
 
-box "Play Server" #LightGreen
+box "C# Server" #LightGreen
     participant controller
     participant secure
     participant security
@@ -39,24 +39,24 @@ alt result
     form -> controller : formSignIn(JSON: { "email": email, "password": pwd })
     activate controller
     
-    ' Loop block for retrying failed authentication'
+    ' Loop block for retrying failed authentication
     loop Retry Authentication (Max 3 Attempts)
         controller -> controller : result = checkFields()
         
         autonumber 20
         
         alt result
-            controller -> secure : Secure.authenticate(JSON: { "email": email, "password": pwd, "remember": true })
+            controller -> secure : Secure.Authenticate(JSON: { "email": email, "password": pwd, "remember": true })
             activate secure
             
             note right of secure: Authenticates user credentials asynchronously
             
-            secure ->> security : onAuthenticated()
+            secure ->> security : OnAuthenticated()
             activate security
             
             note over security: Security validation completed
             
-            security --> form : renderJSON(0)  ' Synchronous response'
+            security --> form : renderJSON(0)  ' Synchronous response
             deactivate security
             deactivate secure
             deactivate controller
