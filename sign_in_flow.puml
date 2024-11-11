@@ -7,6 +7,7 @@ participant "formSign.cs" as form <<Form Controller>>
 participant "Sign.cs" as controller <<(C,#ADD1B2) Form Controller>>
 participant "Secure.cs" as secure <<(C,#ADD1B2) Authentication>>
 participant "Security.cs" as security <<(C,#ADD1B2) Security>>
+database "UserDB" as database <<Database>>
 
 autonumber 1
 
@@ -18,6 +19,7 @@ box "C# Server" #LightGreen
     participant controller
     participant secure
     participant security
+    participant database
 end box
 
 == User Initiates Sign-In ==
@@ -54,11 +56,17 @@ alt "Fields Validation Passed" result
                 Asynchronously authenticates user credentials.
             end note
             
-            secure ->> security : OnAuthenticated()
+            secure -> database : Query User Data (email)
+            activate database
+            
+            database --> secure : User Data (if found)
+            deactivate database
+            
+            secure ->> security : OnAuthenticated(User Data)
             activate security
             
             note right of security
-                Security validation completed.
+                Security validation completed with retrieved user data.
             end note
             
             security --> form : renderJSON(0)  ' Synchronous response
