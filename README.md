@@ -158,32 +158,6 @@ UML diagrams use a variety of arrows to represent different kinds of relationshi
 
 ---
 
-### Example of Usage in a Diagram
-
-Here’s how some of these relationships might be used in a **class diagram** of an organization:
-
-```plantuml
-@startuml
-class Person {
-}
-
-class Address {
-}
-
-class Employee {
-}
-
-class Department {
-}
-
-Person -- Address : has
-Employee --|> Person : inherits
-Department o-- Employee : manages
-@enduml
-```
-
----
-
 ## Example Diagram Overview
 
 Here are brief descriptions of the included `.puml` diagrams:
