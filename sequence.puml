@@ -1,0 +1,83 @@
+@startuml
+
+title User Sign-In Process Flow
+
+actor User as user
+participant "formSign.js" as form <<Form Controller>>
+participant "Sign.java" as controller <<(C,#ADD1B2) Form Controller>>
+participant "Secure.java" as secure <<(C,#ADD1B2) authentication>>
+participant "Security.java" as security <<(C,#ADD1B2) security>>
+
+autonumber 1
+
+box "Web Application" #LightBlue
+    participant form
+end box
+
+box "Play Server" #LightGreen
+    participant controller
+    participant secure
+    participant security
+end box
+
+note over user: User initiates sign-in request
+
+user -> form : submitSignIn()
+activate form
+form -> form : getParameters()
+form -> form : result = checkFields()
+
+note over form: Verifies form fields for completeness
+
+' Start a new page after initial steps
+'newpage
+
+autonumber 10
+
+alt result
+
+    form -> controller : formSignIn(JSON: { "email": email, "password": pwd })
+    activate controller
+    
+    ' Loop block for retrying failed authentication'
+    loop Retry Authentication (Max 3 Attempts)
+        controller -> controller : result = checkFields()
+        
+        autonumber 20
+        
+        alt result
+            controller -> secure : Secure.authenticate(JSON: { "email": email, "password": pwd, "remember": true })
+            activate secure
+            
+            note right of secure: Authenticates user credentials asynchronously
+            
+            secure ->> security : onAuthenticated()
+            activate security
+            
+            note over security: Security validation completed
+            
+            security --> form : renderJSON(0)  ' Synchronous response'
+            deactivate security
+            deactivate secure
+            deactivate controller
+            form --> user : display main page
+            deactivate form
+            
+            note over user: User sees the main page on successful login
+            
+        else !result
+            controller --> form : renderJSON(1)
+            deactivate controller
+            form --> user : display error
+            
+            note over user: Error message is displayed on failed login
+            
+        end
+    end
+    
+else !result
+    form --> user : display error
+    deactivate form
+end
+
+@enduml
