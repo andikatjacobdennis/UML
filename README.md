@@ -12,6 +12,18 @@ A UML use case diagram for a generic user registration and verification flow. It
 - Sending and verifying email for account validation
 - Error handling for invalid verification attempts
 
+### 2. *activity.puml*
+A UML activity diagram outlines the interactions between a Shopper and a Greeter at a shopping center. Here's a breakdown of what each part represents:
+- **Shopper enters the shopping center**: The Shopper enters the center and encounters the Greeter.
+- **Greeter greets the Shopper**: The Greeter smiles at the Shopper.
+- **Shopper smiles back**: The Shopper smiles back at the Greeter.
+- **Greeter offers a shopping cart**: The Greeter asks if the Shopper would like a cart.
+- **Shopper decides whether to take the cart**: The Shopper makes a decision.
+   - If the Shopper agrees, they get the cart and proceed to shop.
+   - If the Shopper decides not to take the cart, they proceed without it.
+- **Greeter ends the interaction**: After the decision, the Greeter ends their part of the interaction.
+- **Shopper finishes shopping**: The Shopper concludes their shopping experience.
+
 ### 2. **organization_class_diagram.puml**
 A **Class Diagram** representing the structure of an **organization** system. The diagram includes classes like `Person`, `Employee`, `Manager`, `TeamLead`, `Department`, and related concepts such as `Address` and `Payroll`. It showcases:
 - Inheritance relationships (e.g., `Employee` and `Manager` inherit from `Person`).
@@ -183,6 +195,15 @@ This use case diagram represents the user registration and email verification pr
 *Example rendered output of the registration use case.*
 
 ---
+
+### **2. activity.puml**
+
+A UML activity diagram outlines the interactions between a Shopper and a Greeter at a shopping center.
+The diagram ends with the Shopper finishing their shopping.
+This flow is simple and shows a basic customer experience scenario.
+
+![activity.png](images/activity.png)  
+*Example rendered output of the greet activity diagram.*
 
 ### **2. organization_class_diagram.puml**
 
