@@ -3,23 +3,28 @@
 title User Sign-In Process Flow (UML 2.5)
 
 actor User as user
-participant "formSign.cs" as form <<Form Controller>>
-participant "Sign.cs" as controller <<(C,#ADD1B2) Form Controller>>
-participant "Secure.cs" as secure <<(C,#ADD1B2) Authentication>>
-participant "Security.cs" as security <<(C,#ADD1B2) Security>>
-database "UserDB" as database <<Database>>
+boundary "formSign.cs" as form <<Boundary>>
+control "Sign.cs" as controller <<Control>>
+control "Secure.cs" as secure <<Control>>
+control "Security.cs" as security <<Control>>
+entity "UserDB" as database <<Entity>>
+control "Log.cs" as log <<Control>>
 
 autonumber 1
 
 box "Web Application" #LightBlue
-    participant form
+    boundary form
 end box
 
 box "C# Server" #LightGreen
-    participant controller
-    participant secure
-    participant security
-    participant database
+    control controller
+    control secure
+    control security
+    control log
+end box
+
+box "Database Server" #LightYellow
+    entity database
 end box
 
 == User Initiates Sign-In ==
@@ -33,7 +38,6 @@ note right of form
     Verifies form fields for completeness.
 end note
 
-' New page or section for main authentication flow
 == Authentication Flow ==
 
 autonumber 10
@@ -76,6 +80,8 @@ alt "Fields Validation Passed" result
             form --> user : display main page
             deactivate form
             
+            log -> log : Serilog.Information("Success - User authenticated.")
+            
             note over user
                 User sees the main page on successful login.
             end note
@@ -84,6 +90,8 @@ alt "Fields Validation Passed" result
             controller --> form : renderJSON(1)
             deactivate controller
             form --> user : display error
+            
+            log -> log : Serilog.Warning("Failure - Invalid credentials.")
             
             note over user
                 Error message is displayed on failed login.
@@ -95,6 +103,14 @@ alt "Fields Validation Passed" result
 else "Fields Validation Failed"
     form --> user : display error
     deactivate form
+    
+    log -> log : Serilog.Warning("Failure - Incomplete fields.")
 end
+
+== Database Specification ==
+
+note right of database
+    Database Version: SQL Server 2019
+end note
 
 @enduml
