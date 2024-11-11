@@ -118,123 +118,43 @@ UML diagrams use a variety of arrows to represent different kinds of relationshi
 - **Meaning**: Indicates inheritance or generalization between classes.
 - **Usage**: Used in class diagrams to show that one class (the child) inherits the properties and behaviors of another (the parent).
 
-#### PlantUML Code:
-```plantuml
-@startuml
-class Person {
-}
-
-class Employee {
-}
-
-Employee --|> Person : inherits
-@enduml
-```
+![Generalization.png](images/ArrowTypes/Generalization.png) 
 
 ### 5. **Dashed Line with Arrowhead (Realization)**
 - **Meaning**: Represents an implementation relationship between an interface and a class or between a class and an abstract method.
 - **Usage**: In class diagrams, it shows that a class implements an interface.
 
-#### PlantUML Code:
-```plantuml
-@startuml
-interface IWorker {
-}
-
-class Manager {
-}
-
-Manager ..|> IWorker : implements
-@enduml
-```
+![Realization.png](images/ArrowTypes/Realization.png) 
 
 ### 6. **Solid Line with Open Arrowhead (Navigability)**
 - **Meaning**: Indicates a unidirectional association where one element can navigate to the other.
 - **Usage**: Used in class diagrams to show that one class can access or reference another class.
 
-#### PlantUML Code:
-```plantuml
-@startuml
-class Department {
-}
-
-class Employee {
-}
-
-Department --> Employee : manages
-@enduml
-```
+![Navigability.png](images/ArrowTypes/Navigability.png) 
 
 ### 7. **Message Arrow (Sequence Diagram)**
 - **Meaning**: Represents the flow of messages between objects in a sequence diagram.
 - **Usage**: Used in sequence diagrams to show the direction and nature of communication between objects or components.
 
-#### PlantUML Code:
-```plantuml
-@startuml
-actor User
-participant Frontend
-participant Backend
-
-User -> Frontend : submits login form
-Frontend -> Backend : authenticate user
-Backend --> Frontend : authentication result
-Frontend --> User : login success
-@enduml
-```
+![MessageArrow.png](images/ArrowTypes/MessageArrow.png) 
 
 ### 8. **Return Arrow (Sequence Diagram)**
 - **Meaning**: Indicates the return of control or a value to the calling object in a sequence diagram.
 - **Usage**: Typically used in sequence diagrams after a message is sent, to show the return of a result or confirmation.
 
-#### PlantUML Code:
-```plantuml
-@startuml
-actor User
-participant Frontend
-participant Backend
-
-User -> Frontend : submits login form
-Frontend -> Backend : authenticate user
-Backend --> Frontend : authentication result
-Frontend --> User : login success
-Backend <-- Frontend : confirmation
-@enduml
-```
+![ReturnArrow.png](images/ArrowTypes/ReturnArrow.png) 
 
 ### 9. **Aggregation (Hollow Diamond)**
 - **Meaning**: Represents a "whole-part" relationship, where one object (the whole) contains other objects (the parts), but the parts can exist independently.
 - **Usage**: Often used in class diagrams to show a collection or grouping of objects that can exist on their own.
 
-#### PlantUML Code:
-```plantuml
-@startuml
-class Department {
-}
-
-class Employee {
-}
-
-Department o-- Employee : contains
-@enduml
-```
+![Aggregation.png](images/ArrowTypes/Aggregation.png) 
 
 ### 10. **Composition (Filled Diamond)**
 - **Meaning**: A stronger form of aggregation, indicating a "whole-part" relationship where the part cannot exist without the whole.
 - **Usage**: Used in class diagrams to show that one object (the whole) completely owns or controls the lifecycle of another (the part).
 
-#### PlantUML Code:
-```plantuml
-@startuml
-class Team {
-}
-
-class Employee {
-}
-
-Team *-- Employee : owns
-@enduml
-```
+![Composition.png](images/ArrowTypes/Composition.png) 
 
 ---
 
