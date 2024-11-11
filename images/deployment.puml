@@ -1,0 +1,90 @@
+@startuml
+
+left to right direction
+
+actor Developer
+
+node "Developer Machine" {
+    artifact "Unit Test Project" <<csproj>> as UnitTest
+    artifact "Microservice Project" <<csproj>> as Microservice
+    artifact "Service Fabric Application" <<sfproj>> as SFApp
+}
+
+package "Service Fabric Cluster" {
+    node "Service Fabric Application" {
+        artifact "Deployed Microservice" <<deployed microservice>> as DeployedMicroservice
+    }
+
+    queue "Message Queue" <<queue>> as MessageQueue
+    queue "Event Topic" <<topic>> as EventTopic
+    artifact "WebSocket Server" <<real-time communication>> as WebSocketServer
+}
+
+package "Networking" {
+    artifact "Azure Load Balancer" <<load balancing>> as LoadBalancer
+    artifact "Azure Traffic Manager" <<traffic management>> as TrafficManager
+}
+
+package "Storage" {
+    artifact "Azure Storage" <<storage>> as AzureStorage
+    artifact "Azure Redis Cache" <<cache>> as RedisCache
+    artifact "Azure Blob Storage" <<storage>> as BlobStorage
+    artifact "Azure Cosmos DB" <<database>> as CosmosDB
+}
+
+package "Compute" {
+    artifact "Azure Functions" <<serverless>> as AzureFunctions
+    artifact "Azure Container Instances" <<container>> as ContainerInstances
+}
+
+package "Security" {
+    artifact "Azure Active Directory" <<identity>> as AAD
+    artifact "Azure Key Vault" <<secrets management>> as KeyVault
+}
+
+package "Monitoring" {
+    artifact "Application Insights" <<monitoring tool>> as AppInsights
+    artifact "Azure Monitor" <<monitoring>> as AzureMonitor
+}
+
+package "CI/CD" {
+    artifact "Azure DevOps" <<ci/cd>> as DevOps
+}
+
+package "Integration" {
+    artifact "Azure Logic Apps" <<integration>> as LogicApps
+}
+
+package "API Management" {
+    artifact "Azure API Management" <<api gateway>> as APIM
+}
+
+Developer --> UnitTest : Writes and runs tests
+Developer --> Microservice : Develops code
+
+UnitTest ..> Microservice : <<test>>
+SFApp ..> DeployedMicroservice : <<deploy>>
+
+DeployedMicroservice ..> MessageQueue : <<sends messages>>
+DeployedMicroservice ..> EventTopic : <<publishes events>>
+DeployedMicroservice ..> WebSocketServer : <<real-time updates>>
+DeployedMicroservice ..> AppInsights : <<logs telemetry>>
+DeployedMicroservice ..> KeyVault : <<access secrets>>
+DeployedMicroservice ..> AzureStorage : <<store/retrieve data>>
+DeployedMicroservice ..> ServiceBus : <<send messages>>
+DeployedMicroservice ..> AzureMonitor : <<monitor performance>>
+DeployedMicroservice ..> AppConfig : <<access configuration>>
+DeployedMicroservice ..> CosmosDB : <<store/retrieve data>>
+DeployedMicroservice ..> APIM : <<exposes API>>
+DeployedMicroservice ..> AzureFunctions : <<executes serverless functions>>
+DeployedMicroservice ..> LoadBalancer : <<distributes traffic>>
+DeployedMicroservice ..> AAD : <<authenticates users>>
+DeployedMicroservice ..> RedisCache : <<stores data in cache>>
+DeployedMicroservice ..> TrafficManager : <<manages traffic distribution>>
+DeployedMicroservice ..> ACR : <<pushes containers>>
+DeployedMicroservice ..> LogicApps : <<executes workflows>>
+DeployedMicroservice ..> ContainerInstances : <<runs containers>>
+DeployedMicroservice ..> DevOps : <<automates CI/CD>>
+DeployedMicroservice ..> BlobStorage : <<stores blob data>>
+
+@enduml
