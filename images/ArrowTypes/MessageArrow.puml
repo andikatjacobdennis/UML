@@ -1,0 +1,10 @@
+@startuml
+actor User
+participant Frontend
+participant Backend
+
+User -> Frontend : submits login form
+Frontend -> Backend : authenticate user
+Backend --> Frontend : authentication result
+Frontend --> User : login success
+@enduml
