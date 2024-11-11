@@ -1,0 +1,9 @@
+@startuml
+class Team {
+}
+
+class Employee {
+}
+
+Team *-- Employee : owns
+@enduml
