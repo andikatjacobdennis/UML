@@ -69,7 +69,7 @@ alt "Fields Validation Passed" result
                 Security validation completed with retrieved user data.
             end note
             
-            security --> form : renderJSON(0)  ' Synchronous response
+            security --> form : renderJSON(0)  ' Synchronous response'
             deactivate security
             deactivate secure
             deactivate controller
