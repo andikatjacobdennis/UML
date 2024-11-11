@@ -100,52 +100,19 @@ UML diagrams use a variety of arrows to represent different kinds of relationshi
 - **Meaning**: Represents a simple relationship between two elements.
 - **Usage**: Commonly used in class diagrams to show that two classes are associated in some way.
 
-#### PlantUML Code:
-```plantuml
-@startuml
-class Person {
-}
-
-class Address {
-}
-
-Person -- Address : has
-@enduml
-```
+![Association.png](images/ArrowTypes/Association.png) 
 
 ### 2. **Arrowhead on Solid Line (Directed Association)**
 - **Meaning**: Indicates that the association has a direction, i.e., one element sends messages to or influences another.
 - **Usage**: Often used in class diagrams where one class knows about or interacts with another.
 
-#### PlantUML Code:
-```plantuml
-@startuml
-class Person {
-}
-
-class Address {
-}
-
-Person --> Address : directs
-@enduml
-```
+![DirectedAssociation.png](images/ArrowTypes/DirectedAssociation.png) 
 
 ### 3. **Dashed Line (Dependency)**
 - **Meaning**: Represents a dependency between two elements, where one element relies on another.
 - **Usage**: Common in class diagrams to indicate that one class depends on another for functionality.
 
-#### PlantUML Code:
-```plantuml
-@startuml
-class Payroll {
-}
-
-class Employee {
-}
-
-Payroll ..> Employee : depends on
-@enduml
-```
+![Dependency.png](images/ArrowTypes/Dependency.png) 
 
 ### 4. **Solid Line with Arrowhead (Generalization)**
 - **Meaning**: Indicates inheritance or generalization between classes.
