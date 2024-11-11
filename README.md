@@ -88,6 +88,215 @@ This will generate image files in the same directory which you can open to view 
 
 ---
 
+Certainly! Below, I'll include PlantUML code for each UML relationship type along with explanations. You can use these `.puml` code snippets to generate corresponding diagrams in PlantUML.
+
+---
+
+## UML 2.5 Arrow Types and Their Meanings
+
+UML diagrams use a variety of arrows to represent different kinds of relationships, flow of control, and data exchanges. Below is a list of the main arrow types used in UML 2.5 and their associated meanings, along with the corresponding PlantUML code for each type.
+
+### 1. **Solid Line (Association)**
+- **Meaning**: Represents a simple relationship between two elements.
+- **Usage**: Commonly used in class diagrams to show that two classes are associated in some way.
+
+#### PlantUML Code:
+```plantuml
+@startuml
+class Person {
+}
+
+class Address {
+}
+
+Person -- Address : has
+@enduml
+```
+
+### 2. **Arrowhead on Solid Line (Directed Association)**
+- **Meaning**: Indicates that the association has a direction, i.e., one element sends messages to or influences another.
+- **Usage**: Often used in class diagrams where one class knows about or interacts with another.
+
+#### PlantUML Code:
+```plantuml
+@startuml
+class Person {
+}
+
+class Address {
+}
+
+Person --> Address : directs
+@enduml
+```
+
+### 3. **Dashed Line (Dependency)**
+- **Meaning**: Represents a dependency between two elements, where one element relies on another.
+- **Usage**: Common in class diagrams to indicate that one class depends on another for functionality.
+
+#### PlantUML Code:
+```plantuml
+@startuml
+class Payroll {
+}
+
+class Employee {
+}
+
+Payroll ..> Employee : depends on
+@enduml
+```
+
+### 4. **Solid Line with Arrowhead (Generalization)**
+- **Meaning**: Indicates inheritance or generalization between classes.
+- **Usage**: Used in class diagrams to show that one class (the child) inherits the properties and behaviors of another (the parent).
+
+#### PlantUML Code:
+```plantuml
+@startuml
+class Person {
+}
+
+class Employee {
+}
+
+Employee --|> Person : inherits
+@enduml
+```
+
+### 5. **Dashed Line with Arrowhead (Realization)**
+- **Meaning**: Represents an implementation relationship between an interface and a class or between a class and an abstract method.
+- **Usage**: In class diagrams, it shows that a class implements an interface.
+
+#### PlantUML Code:
+```plantuml
+@startuml
+interface IWorker {
+}
+
+class Manager {
+}
+
+Manager ..|> IWorker : implements
+@enduml
+```
+
+### 6. **Solid Line with Open Arrowhead (Navigability)**
+- **Meaning**: Indicates a unidirectional association where one element can navigate to the other.
+- **Usage**: Used in class diagrams to show that one class can access or reference another class.
+
+#### PlantUML Code:
+```plantuml
+@startuml
+class Department {
+}
+
+class Employee {
+}
+
+Department --> Employee : manages
+@enduml
+```
+
+### 7. **Message Arrow (Sequence Diagram)**
+- **Meaning**: Represents the flow of messages between objects in a sequence diagram.
+- **Usage**: Used in sequence diagrams to show the direction and nature of communication between objects or components.
+
+#### PlantUML Code:
+```plantuml
+@startuml
+actor User
+participant Frontend
+participant Backend
+
+User -> Frontend : submits login form
+Frontend -> Backend : authenticate user
+Backend --> Frontend : authentication result
+Frontend --> User : login success
+@enduml
+```
+
+### 8. **Return Arrow (Sequence Diagram)**
+- **Meaning**: Indicates the return of control or a value to the calling object in a sequence diagram.
+- **Usage**: Typically used in sequence diagrams after a message is sent, to show the return of a result or confirmation.
+
+#### PlantUML Code:
+```plantuml
+@startuml
+actor User
+participant Frontend
+participant Backend
+
+User -> Frontend : submits login form
+Frontend -> Backend : authenticate user
+Backend --> Frontend : authentication result
+Frontend --> User : login success
+Backend <-- Frontend : confirmation
+@enduml
+```
+
+### 9. **Aggregation (Hollow Diamond)**
+- **Meaning**: Represents a "whole-part" relationship, where one object (the whole) contains other objects (the parts), but the parts can exist independently.
+- **Usage**: Often used in class diagrams to show a collection or grouping of objects that can exist on their own.
+
+#### PlantUML Code:
+```plantuml
+@startuml
+class Department {
+}
+
+class Employee {
+}
+
+Department o-- Employee : contains
+@enduml
+```
+
+### 10. **Composition (Filled Diamond)**
+- **Meaning**: A stronger form of aggregation, indicating a "whole-part" relationship where the part cannot exist without the whole.
+- **Usage**: Used in class diagrams to show that one object (the whole) completely owns or controls the lifecycle of another (the part).
+
+#### PlantUML Code:
+```plantuml
+@startuml
+class Team {
+}
+
+class Employee {
+}
+
+Team *-- Employee : owns
+@enduml
+```
+
+---
+
+### Example of Usage in a Diagram
+
+Here’s how some of these relationships might be used in a **class diagram** of an organization:
+
+```plantuml
+@startuml
+class Person {
+}
+
+class Address {
+}
+
+class Employee {
+}
+
+class Department {
+}
+
+Person -- Address : has
+Employee --|> Person : inherits
+Department o-- Employee : manages
+@enduml
+```
+
+---
+
 ## Example Diagram Overview
 
 Here are brief descriptions of the included `.puml` diagrams:
