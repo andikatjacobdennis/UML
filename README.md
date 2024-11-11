@@ -1,7 +1,3 @@
-Here's an updated version of the README, incorporating the new PlantUML diagram you mentioned for the microservice architecture:
-
----
-
 # UML Diagrams Repository
 
 This repository contains UML diagrams created with PlantUML to illustrate various software design processes. Each `.puml` file represents a different flow or structure, intended to help visualize and document software architecture, interaction flows, and other important design aspects.
@@ -111,7 +107,3 @@ Contributions are welcome! If you want to add or improve a diagram:
 1. Fork this repository.
 2. Make your changes or add new `.puml` files.
 3. Submit a pull request with a description of the update.
-
----
-
-This updated README includes a new diagram for the microservice architecture, showcasing a comprehensive deployment to Azure's Service Fabric and integration with several Azure services. Let me know if you need further adjustments!
