@@ -24,7 +24,7 @@ A UML activity diagram outlines the interactions between a Shopper and a Greeter
 - **Greeter ends the interaction**: After the decision, the Greeter ends their part of the interaction.
 - **Shopper finishes shopping**: The Shopper concludes their shopping experience.
 
-### 2. **organization_class_diagram.puml**
+### 3. **organization_class_diagram.puml**
 A **Class Diagram** representing the structure of an **organization** system. The diagram includes classes like `Person`, `Employee`, `Manager`, `TeamLead`, `Department`, and related concepts such as `Address` and `Payroll`. It showcases:
 - Inheritance relationships (e.g., `Employee` and `Manager` inherit from `Person`).
 - Composition (e.g., `Department` contains `Employee` objects).
@@ -34,13 +34,13 @@ A **Class Diagram** representing the structure of an **organization** system. Th
   
 This class diagram models a complex organizational structure, detailing how employees, managers, and various supporting systems interact.
 
-### 3. **sign_in_flow.puml**
+### 4. **sign_in_flow.puml**
 A UML sequence diagram detailing the user sign-in process for a generic web application. It illustrates interactions between the user, frontend interface, and backend server components, including:
 - Form submission
 - Authentication and validation
 - Error handling and success flows
 
-### 4. **microservice_architecture.puml**
+### 5. **microservice_architecture.puml**
 A UML component diagram representing the architecture of a microservice application hosted on Azure's Service Fabric. It illustrates the interactions between various components, including:
 - Microservice code and unit testing
 - Service Fabric cluster deployment
@@ -205,7 +205,7 @@ This flow is simple and shows a basic customer experience scenario.
 ![activity.png](images/activity.png)  
 *Example rendered output of the greet activity diagram.*
 
-### **2. organization_class_diagram.puml**
+### **3. organization_class_diagram.puml**
 
 This class diagram illustrates the organizational structure, with classes such as `Person`, `Employee`, `Manager`, `TeamLead`, `Department`, and `Address`, showcasing relationships like inheritance, composition, dependency, and event handling.
 
@@ -224,7 +224,7 @@ This class diagram illustrates the organizational structure, with classes such a
 
 ---
 
-### **3. sign_in_flow.puml**
+### **4. sign_in_flow.puml**
 
 This sequence diagram depicts the steps in a user sign-in process.
 
@@ -239,7 +239,7 @@ This sequence diagram depicts the steps in a user sign-in process.
 
 ---
 
-### **4. microservice_architecture.puml**
+### **5. microservice_architecture.puml**
 
 This component diagram represents a microservice architecture deployed on Azure Service Fabric.
 
