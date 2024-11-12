@@ -84,6 +84,7 @@ Once you have cloned the repository, you can render the `.puml` files using Plan
 
 ```bash
 plantuml sign_in_flow.puml
+plantuml activity.puml
 plantuml registration_use_case.puml
 plantuml microservice_architecture.puml
 plantuml organization_class_diagram.puml
