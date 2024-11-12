@@ -101,10 +101,6 @@ This will generate image files in the same directory which you can open to view 
 
 ---
 
-Certainly! Below, I'll include PlantUML code for each UML relationship type along with explanations. You can use these `.puml` code snippets to generate corresponding diagrams in PlantUML.
-
----
-
 ## UML 2.5 Arrow Types and Their Meanings
 
 UML diagrams use a variety of arrows to represent different kinds of relationships, flow of control, and data exchanges. Below is a list of the main arrow types used in UML 2.5 and their associated meanings, along with the corresponding PlantUML code for each type.
