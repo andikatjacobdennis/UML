@@ -1,0 +1,101 @@
+@startuml
+title [SYSTEM NAME] — UML 2.5 Sequence Diagram Template
+
+' ================================
+' Style
+' ================================
+skinparam linetype polyline
+skinparam Shadowing false
+skinparam Padding 10
+skinparam NodePadding 10
+skinparam ComponentPadding 10
+
+' ================================
+' Lifelines / Participants
+' ================================
+actor ACT as "ActorName" <<actor>>
+participant BND as "Boundary Component" <<boundary>>
+participant CTRL as "Control Component" <<control>>
+participant DB as "Entity / DB" <<entity>>
+participant EXT as "External System" <<external>>
+participant BUS as "Queue / Message Bus" <<queue>>
+participant WK as "Worker / Async" <<control>>
+
+' ================================
+' Creation / Destruction
+' ================================
+create TEMP as "Temporary Object"
+CTRL -> TEMP : initialize(params)
+activate TEMP
+TEMP --> CTRL : creationAck
+deactivate TEMP
+
+' ================================
+' Basic Message Flow
+' ================================
+ACT -> BND : requestAction(parameters)
+activate BND
+BND -> CTRL : processRequest(data)
+activate CTRL
+
+' ================================
+' Conditional / Alternative Flows
+' ================================
+alt Condition 1 (Yes)
+    CTRL -> DB : queryData(params)
+    activate DB
+    DB --> CTRL : result
+    deactivate DB
+else Condition 2 (No)
+    CTRL --> BND : errorMessage
+    deactivate CTRL
+    BND --> ACT : returnError
+    deactivate BND
+end
+
+' ================================
+' Optional / Opt Fragment
+' ================================
+opt Optional Step
+    CTRL -> EXT : callExternalService()
+    activate EXT
+    EXT --> CTRL : response
+    deactivate EXT
+end
+
+' ================================
+' Loops
+' ================================
+loop Repeat N times / while condition
+    CTRL -> DB : updateRecord()
+    DB --> CTRL : ack
+end
+
+' ================================
+' Asynchronous Messages
+' ================================
+CTRL ->> BUS : publishEvent(eventData) <<asynchronous>>
+activate BUS
+BUS ->> WK : deliver(event)
+activate WK
+WK --> BUS : processingAck
+deactivate WK
+deactivate BUS
+
+' ================================
+' Notes
+' ================================
+note right of CTRL
+  Notes can describe logic, constraints,
+  or explain optional / alternate flows.
+end note
+
+' ================================
+' Final Response / End of Sequence
+' ================================
+CTRL --> BND : finalResponse
+deactivate CTRL
+BND --> ACT : returnResult
+deactivate BND
+
+@enduml

@@ -1,0 +1,48 @@
+@startuml
+
+skinparam linetype polyline
+skinparam linetype ortho
+skinparam Shadowing false
+skinparam Padding 10
+skinparam NodePadding 10
+skinparam ComponentPadding 10
+
+' UML 2.5 Compliant Use Case Diagram Template
+
+left to right direction
+skinparam packageStyle rectangle
+
+' Actors
+actor "Actor 1" as ACT1
+actor "Actor 2" as ACT2
+actor "Actor 3" as ACT3
+actor "External System" as EXT
+
+' Generalization among actors
+ACT1 <|-- ACT2
+
+' System / Use Cases
+package "SYSTEM NAME" {
+  usecase "Use Case 1" as UC1
+  usecase "Use Case 2" as UC2
+  usecase "Use Case 3" as UC3
+  usecase "Use Case 4" as UC4
+  usecase "Use Case 5" as UC5
+}
+
+' Relationships
+ACT1 --> UC1
+ACT1 --> UC2
+ACT2 --> UC3
+ACT2 --> UC4
+ACT3 --> UC5
+UC4 --> UC5
+UC2 --> EXT
+
+' Notes
+note right of UC1
+  Notes can describe preconditions, constraints,
+  or additional info about the use case.
+end note
+
+@enduml

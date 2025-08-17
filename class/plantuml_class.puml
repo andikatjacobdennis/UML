@@ -1,0 +1,87 @@
+@startuml
+' ================================
+' UML Template: Key Features
+' ================================
+
+skinparam linetype polyline
+skinparam Shadowing false
+skinparam Padding 10
+skinparam NodePadding 10
+skinparam ComponentPadding 10
+
+hide empty members
+
+' -------------------------------
+' Enumerations
+' -------------------------------
+enum ExampleEnum {
+    + VALUE1
+    + VALUE2
+    + VALUE3
+}
+
+' -------------------------------
+' Interfaces
+' -------------------------------
+interface IExampleInterface {
+    + {abstract} +exampleMethod(param: Type): ReturnType
+}
+
+' -------------------------------
+' Abstract Classes
+' -------------------------------
+abstract class AbstractExample {
+    # -id: String
+    # -createdAt: DateTime
+    + +getId(): String
+    + +getCreatedAt(): DateTime
+}
+
+' -------------------------------
+' Classes
+' -------------------------------
+class ExampleClass << (C,#FF7700) Entity >> {
+    + -attribute1: Type
+    + -attribute2: Type
+    + +method1(): ReturnType
+    + +method2(param: Type): ReturnType
+}
+
+class AnotherClass1 {
+    + -attribute: Type
+    + +someMethod(): ReturnType
+}
+
+class AnotherClass2 {
+    + -attribute: Type
+    + +someMethod(): ReturnType
+}
+
+class AnotherClass3 {
+    + -attribute: Type
+    + +someMethod(): ReturnType
+}
+
+' -------------------------------
+' Relationships
+' -------------------------------
+' Inheritance
+AbstractExample <|-- ExampleClass
+IExampleInterface <|.. ExampleClass
+
+' Association
+ExampleClass "1" --> "0..*" AnotherClass1
+
+' Aggregation (hollow diamond)
+ExampleClass "1" o-- "0..*" AnotherClass2
+
+' Composition (filled diamond)
+ExampleClass "1" *-- "1..*" AnotherClass3
+
+' Notes
+note right of ExampleClass
+  This is an example note.
+  You can describe purpose, constraints, or rules here.
+end note
+
+@enduml

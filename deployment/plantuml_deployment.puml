@@ -1,0 +1,133 @@
+@startuml Deployment_Generic
+
+' ================================
+' Style / Layout
+' ================================
+skinparam linetype ortho
+skinparam defaultFontName Arial
+skinparam nodesep 50
+skinparam ranksep 50
+skinparam shadowing false
+skinparam Padding 10
+skinparam NodePadding 15
+skinparam ComponentPadding 10
+skinparam defaultTextAlignment center
+
+skinparam rectangle<<artifact>> {
+  BackgroundColor #FFE6E6
+  BorderColor #CC0000
+}
+
+skinparam node<<execution environment>> {
+  BackgroundColor #F0F0F0
+  BorderColor #666
+}
+
+skinparam database<<database>> {
+  BackgroundColor #E6F3FF
+  BorderColor #0066CC
+}
+
+skinparam component<<service>> {
+  BackgroundColor #FFF2E6
+  BorderColor #FF9933
+  RoundCorner 10
+}
+
+skinparam cloud<<cloud>> {
+  BackgroundColor #F5F5FF
+  BorderColor #9999FF
+  BorderStyle dashed
+}
+
+' ================================
+' Cloud / Nodes
+' ================================
+cloud "Cloud Environment" <<cloud>> as cloud {
+  node "Compute Node" <<execution environment>> as app_node {
+    component "Web Application" <<service>> as web_app
+    database "Session Store" <<database>> as session_store
+  }
+
+  node "Database Node" <<execution environment>> as db_node {
+    database "Database Engine\n«PostgreSQL»" <<database>> as db_engine
+  }
+
+  node "Cache Node" <<execution environment>> as cache_node {
+    component "Cache System\n«Redis»" <<service>> as cache_system
+  }
+
+  node "Storage Node" <<execution environment>> as storage_node {
+    component "File Storage\n«S3»" <<service>> as file_storage
+  }
+
+  node "CDN Node" <<execution environment>> as cdn_node {
+    component "Edge Cache\n«CloudFront»" <<service>> as edge_cache
+  }
+}
+
+' ================================
+' External / Clients
+' ================================
+rectangle "On-Premises" <<device>> as onprem {
+    artifact "CI/CD Pipeline\n«Jenkins»" <<deployer>> as ci_cd
+}
+
+rectangle "Clients" <<device>> as clients {
+    artifact "Web Browser" <<client>> as browser
+    artifact "Mobile App\n«iOS/Android»" <<client>> as mobile
+    artifact "Desktop App\n«Windows/macOS»" <<client>> as desktop
+}
+
+' ================================
+' Relationships
+' ================================
+web_app --> db_engine : "Data Queries\n«JDBC»"
+web_app --> cache_system : "Cache Access\n«Redis Protocol»"
+web_app --> file_storage : "File Storage\n«REST API»"
+edge_cache --> file_storage : "Origin Pull\n«HTTPS»"
+
+browser --> edge_cache : "Static Content\n«HTTP/2»"
+browser --> web_app : "Dynamic Content\n«HTTPS»"
+mobile --> web_app : "REST API\n«JSON»"
+desktop --> web_app : "SOAP API\n«XML»"
+
+ci_cd ..> web_app : "Deployment\n«SSH»"
+ci_cd ..> db_engine : "Schema Updates\n«Flyway»"
+
+' ================================
+' Notes / Legend
+' ================================
+note right of clients
+  <b>Client Types:</b>
+  • «client» Web Browser
+  • «client» Mobile Applications
+  • «client» Desktop Clients
+end note
+
+note left of onprem
+  <b>On-Premises:</b>
+  • «deployer» CI/CD Pipeline
+  • «artifact» Deployment packages
+end note
+
+note bottom of cloud
+  <b>Cloud Components:</b>
+  • «service» Web Application
+  • «database» Data Stores
+  • «service» Cache System
+  • «service» File Storage
+  • «service» CDN Edge
+end note
+
+legend right
+  | Stereotype | Meaning |
+  |------------|---------|
+  | «cloud» | Cloud environment |
+  | «service» | Application service |
+  | «database» | Data storage |
+  | «client» | End-user client |
+  | «deployer» | Deployment system |
+endlegend
+
+@enduml

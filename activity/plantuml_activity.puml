@@ -1,0 +1,71 @@
+@startuml
+
+skinparam linetype polyline
+skinparam Shadowing false
+skinparam Padding 10
+skinparam NodePadding 10
+skinparam ComponentPadding 10
+
+' ================================
+' UML Activity Diagram Template
+' ================================
+
+|Actor|
+start
+-> "Start Process";
+
+:Initial Activity;
+
+' -------------------------------
+' Decision / Branching
+' -------------------------------
+if ("Decision Point?") then (yes)
+    :Activity for Yes;
+    if ("Nested Decision?") then (yes)
+        :Nested Yes Activity;
+    else (no)
+        :Nested No Activity;
+    endif
+else (no)
+    :Activity for No;
+endif
+
+' -------------------------------
+' Loops
+' -------------------------------
+repeat
+    :Looped Activity;
+repeat while ("Loop Condition?")
+
+' -------------------------------
+' Parallel / Forking
+' -------------------------------
+fork
+    |System A|
+    :Parallel Activity A;
+fork again
+    |System B|
+    :Parallel Activity B;
+end fork
+
+' -------------------------------
+' Notes
+' -------------------------------
+note right
+    Notes can be attached to activities,
+    decisions, or flows to give extra context.
+end note
+
+' -------------------------------
+' Error Handling / Alternate Flows
+' -------------------------------
+if ("Error Occurred?") then (yes)
+    :Handle Error;
+    stop
+else (no)
+    :Next Activity;
+endif
+
+-> "End Process";
+stop
+@enduml
