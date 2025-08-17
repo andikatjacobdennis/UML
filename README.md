@@ -8,9 +8,7 @@ This repository contains PlantUML templates (`.puml` files) and their generated 
 
 ![Use Case Example](usecase/plantuml_usecase.svg)
 
-<details>
-<summary>View Source (plantuml_usecase.puml)</summary>
-<pre>
+```plantuml
 @startuml
 skinparam linetype polyline
 skinparam linetype ortho
@@ -50,8 +48,7 @@ note right of UC1
   or additional info about the use case.
 end note
 @enduml
-</pre>
-</details>
+```
 
 ---
 
@@ -59,9 +56,7 @@ end note
 
 ![Activity Example](activity/plantuml_activity.svg)
 
-<details>
-<summary>View Source (plantuml_activity.puml)</summary>
-<pre>
+```plantuml
 @startuml
 skinparam linetype polyline
 skinparam Shadowing false
@@ -113,8 +108,7 @@ endif
 -> "End Process";
 stop
 @enduml
-</pre>
-</details>
+```
 
 ---
 
@@ -122,9 +116,7 @@ stop
 
 ![Class Example](class/plantuml_class.svg)
 
-<details>
-<summary>View Source (plantuml_class.puml)</summary>
-<pre>
+```plantuml
 @startuml
 skinparam linetype polyline
 skinparam Shadowing false
@@ -169,8 +161,7 @@ note right of ExampleClass
   You can describe purpose, constraints, or rules here.
 end note
 @enduml
-</pre>
-</details>
+```
 
 ---
 
@@ -178,9 +169,7 @@ end note
 
 ![Sequence Example](sequence/plantuml_sequence.svg)
 
-<details>
-<summary>View Source (plantuml_sequence.puml)</summary>
-<pre>
+```plantuml
 @startuml
 title [SYSTEM NAME] — UML 2.5 Sequence Diagram Template
 
@@ -241,8 +230,7 @@ deactivate CTRL
 BND --> ACT : returnResult
 deactivate BND
 @enduml
-</pre>
-</details>
+```
 
 ---
 
@@ -250,9 +238,7 @@ deactivate BND
 
 ![Deployment Example](deployment/plantuml_deployment.svg)
 
-<details>
-<summary>View Source (plantuml_deployment.puml)</summary>
-<pre>
+```plantuml
 @startuml Deployment_Generic
 
 skinparam linetype ortho
@@ -287,8 +273,7 @@ note right of clients
   • Mobile Applications
 end note
 @enduml
-</pre>
-</details>
+```
 
 ## How to Use
 
