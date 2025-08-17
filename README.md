@@ -12,6 +12,40 @@ A UML use case diagram for a generic user registration and verification flow. It
 - Sending and verifying email for account validation
 - Error handling for invalid verification attempts
 
+## Class diagram
+
+![Class diagram](doc/class-diagram/class-diagram.png)
+
+<details>
+<summary>View Source</summary>
+<pre>
+@startuml
+skinparam monochrome true
+
+' If you want to hide the "C" circle, then uncomment this line:
+' hide circle
+
+class Class1 {
+  {field} Alpha
+  {method} Bravo
+}
+
+class Class2 {
+  {field} Charlie
+  {method} Delta
+}
+
+class Class3 {
+  {field} Echo
+  {method} Foxtrot
+}
+
+Class1 <|--o Class2
+Class1 <|--* Class3
+@enduml
+</pre>
+</details>
+
 ### 2. *activity.puml*
 A UML activity diagram outlines the interactions between a Shopper and a Greeter at a shopping center. Here's a breakdown of what each part represents:
 - **Shopper enters the shopping center**: The Shopper enters the center and encounters the Greeter.
