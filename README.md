@@ -50,7 +50,7 @@ This repository contains PlantUML templates (`.puml` files) and their generated 
 
 1. Click any "View Source Code" link above
 2. Copy the contents
-3. Paste at [PlantText.com](https://www.planttext.com/) for instant rendering
+3. Paste at [https://editor.plantuml.com/](https://editor.plantuml.com/) for instant rendering
 
 ### Option 2: Local Generation
 
