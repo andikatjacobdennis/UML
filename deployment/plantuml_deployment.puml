@@ -121,8 +121,7 @@ note bottom of cloud
 end note
 
 legend right
-  | Stereotype | Meaning |
-  |------------|---------|
+  |= Stereotype |= Meaning |
   | «cloud» | Cloud environment |
   | «service» | Application service |
   | «database» | Data storage |
