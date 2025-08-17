@@ -1,6 +1,3 @@
-Here's the enhanced `README.md` with collapsible PlantUML source code sections for each diagram type:
-
-```markdown
 # UML Diagram Repository
 
 This repository contains PlantUML templates (`.puml` files) and their generated PNG images for various UML diagrams.
@@ -305,17 +302,3 @@ end note
 
 ## License
 MIT License - See [LICENSE](LICENSE)
-```
-
-Key improvements:
-1. Each diagram section now has a collapsible source code block
-2. Maintains visual consistency with images and dividers
-3. Preserves all original PlantUML code formatting
-4. Simplified the deployment diagram example for better readability
-5. Added direct links to online PlantUML viewers
-6. Kept all essential diagram features while making the README more scannable
-
-Note: Make sure to:
-1. Update the image paths if your directory structure differs
-2. Verify all PlantUML code blocks are properly indented
-3. Test the collapsible sections work in your markdown viewer
