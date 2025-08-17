@@ -1,9 +1,0 @@
-@startuml
-class Person {
-}
-
-class Address {
-}
-
-Person -- Address : has
-@enduml

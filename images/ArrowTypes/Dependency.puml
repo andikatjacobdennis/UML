@@ -1,9 +1,0 @@
-@startuml
-class Payroll {
-}
-
-class Employee {
-}
-
-Payroll ..> Employee : depends on
-@enduml
