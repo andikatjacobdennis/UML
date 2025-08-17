@@ -290,15 +290,40 @@ end note
 </pre>
 </details>
 
-## How to Use
+## 🛠️ How to Use
 
-1. Click "View Source" to see the PlantUML code
-2. Copy the code to a `.puml` file
-3. Generate diagrams using:
+### Option 1: Quick Preview
+
+1. Copy any diagram code
+2. Paste at [PlantText.com](https://www.planttext.com/) for instant rendering
+
+### Option 2: Local Generation
+
+1. [Install PlantUML](https://plantuml.com/download):
+
    ```bash
-   plantuml -tpng file.puml
+   # Requires Java (brew install openjdk / sudo apt install default-jdk)
+   curl -L -o plantuml.jar https://github.com/plantuml/plantuml/releases/latest/download/plantuml.jar
    ```
-4. View in [PlantText](https://www.planttext.com/) for quick previews
 
-## License
-MIT License - See [LICENSE](LICENSE)
+2. Generate diagrams:
+
+   ```bash
+   java -jar plantuml.jar -tpng diagram.puml  # PNG output
+   java -jar plantuml.jar -tsvg diagram.puml  # SVG output
+   ```
+
+### IDE Integration
+
+- **VS Code**: Install "PlantUML" extension by jebbs
+- **IntelliJ**: Install "PlantUML Integration" plugin
+
+## 🌟 Pro Tips
+
+- Use `-checkmetadata` flag for incremental rendering
+- Add `-verbose` flag for debugging generation issues
+- For large diagrams: `-DPLANTUML_LIMIT_SIZE=8192`
+
+## 📜 License
+
+MIT Licensed - See [LICENSE](LICENSE) for details.
