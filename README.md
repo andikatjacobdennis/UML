@@ -1,8 +1,7 @@
 # UML Diagram
 
-![PlantUML Version](https://img.shields.io/badge/PlantUML-1.2023.12-blue)
+![PlantUML Version](https://img.shields.io/badge/PlantUML-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
-![Generated Diagrams](https://img.shields.io/badge/Diagrams-5%20types-orange)
 
 This repository contains PlantUML templates (`.puml` files) and their generated images for various UML diagrams.
 
