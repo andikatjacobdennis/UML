@@ -1,4 +1,4 @@
-# UML Diagram Repository
+# UML Diagram
 
 This repository contains PlantUML templates (`.puml` files) and their generated images for various UML diagrams.
 
