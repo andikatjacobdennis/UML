@@ -56,10 +56,6 @@ This repository contains PlantUML templates (`.puml` files) and their generated 
 
 1. [Download PlantUML](https://plantuml.com/download):
 
-   ```bash
-   curl -L -o plantuml.jar https://github.com/plantuml/plantuml/releases/latest/download/plantuml.jar
-   ```
-
 2. Generate diagrams:
 
    ```bash
