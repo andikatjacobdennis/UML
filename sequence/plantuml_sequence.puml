@@ -14,12 +14,12 @@ skinparam ComponentPadding 10
 ' Lifelines / Participants
 ' ================================
 actor ACT as "ActorName" <<actor>>
-participant BND as "Boundary Component" <<boundary>>
-participant CTRL as "Control Component" <<control>>
-participant DB as "Entity / DB" <<entity>>
+boundary BND as "Boundary Component" <<boundary>>
+control CTRL as "Control Component" <<control>>
+entity DB as "Entity / DB" <<entity>>
 participant EXT as "External System" <<external>>
-participant BUS as "Queue / Message Bus" <<queue>>
-participant WK as "Worker / Async" <<control>>
+queue BUS as "Queue / Message Bus" <<queue>>
+control WK as "Worker / Async" <<control>>
 
 ' ================================
 ' Creation / Destruction
