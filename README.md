@@ -290,7 +290,7 @@ end note
 </pre>
 </details>
 
-## 🛠️ How to Use
+## How to Use
 
 ### Option 1: Quick Preview
 
@@ -318,12 +318,12 @@ end note
 - **VS Code**: Install "PlantUML" extension by jebbs
 - **IntelliJ**: Install "PlantUML Integration" plugin
 
-## 🌟 Pro Tips
+## Pro Tips
 
 - Use `-checkmetadata` flag for incremental rendering
 - Add `-verbose` flag for debugging generation issues
 - For large diagrams: `-DPLANTUML_LIMIT_SIZE=8192`
 
-## 📜 License
+## License
 
 MIT Licensed - See [LICENSE](LICENSE) for details.
