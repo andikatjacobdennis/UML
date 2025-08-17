@@ -6,7 +6,7 @@ This repository contains PlantUML templates (`.puml` files) and their generated 
 
 ### 1. Use Case Diagrams
 
-![Use Case Example](usecase/plantuml_usecase.png)
+![Use Case Example](usecase/plantuml_usecase.svg)
 
 <details>
 <summary>View Source (plantuml_usecase.puml)</summary>
@@ -57,7 +57,7 @@ end note
 
 ### 2. Activity Diagrams
 
-![Activity Example](activity/plantuml_activity.png)
+![Activity Example](activity/plantuml_activity.svg)
 
 <details>
 <summary>View Source (plantuml_activity.puml)</summary>
@@ -120,7 +120,7 @@ stop
 
 ### 3. Class Diagrams
 
-![Class Example](class/plantuml_class.png)
+![Class Example](class/plantuml_class.svg)
 
 <details>
 <summary>View Source (plantuml_class.puml)</summary>
@@ -176,7 +176,7 @@ end note
 
 ### 4. Sequence Diagrams
 
-![Sequence Example](sequence/plantuml_sequence.png)
+![Sequence Example](sequence/plantuml_sequence.svg)
 
 <details>
 <summary>View Source (plantuml_sequence.puml)</summary>
@@ -248,7 +248,7 @@ deactivate BND
 
 ### 5. Deployment Diagrams
 
-![Deployment Example](deployment/plantuml_deployment.png)
+![Deployment Example](deployment/plantuml_deployment.svg)
 
 <details>
 <summary>View Source (plantuml_deployment.puml)</summary>
