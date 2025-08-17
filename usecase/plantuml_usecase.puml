@@ -1,48 +1,47 @@
 @startuml
 
-skinparam linetype polyline
-skinparam linetype ortho
-skinparam Shadowing false
-skinparam Padding 10
-skinparam NodePadding 10
-skinparam ComponentPadding 10
-
-' UML 2.5 Compliant Use Case Diagram Template
-
+' Layout & Style
 left to right direction
 skinparam packageStyle rectangle
+skinparam Shadowing false
+skinparam Padding 12
+skinparam NodePadding 12
+skinparam ComponentPadding 12
+skinparam ActorBorderColor black
+skinparam ActorFontColor black
+skinparam UsecaseBorderColor black
+skinparam UsecaseFontColor black
 
 ' Actors
-actor "Actor 1" as ACT1
-actor "Actor 2" as ACT2
-actor "Actor 3" as ACT3
-actor "External System" as EXT
+actor "End User" as USER
+actor "Administrator" as ADMIN
+database "External Database" as EXTDATA
 
-' Generalization among actors
-ACT1 <|-- ACT2
+' Actor hierarchy
+USER <|-- ADMIN
 
 ' System / Use Cases
-package "SYSTEM NAME" {
-  usecase "Use Case 1" as UC1
-  usecase "Use Case 2" as UC2
-  usecase "Use Case 3" as UC3
-  usecase "Use Case 4" as UC4
-  usecase "Use Case 5" as UC5
+package "System Name" <<subsystem>> {
+  usecase "Main Use Case" as MAIN_UC
+  usecase "Subtask 1" as SUB1
+  usecase "Subtask 2" as SUB2
+  usecase "Optional Feature" as OPTIONAL
+  usecase "Generate Report" as REPORT
+
+  ' Include relationships
+  MAIN_UC .> SUB1 : <<include>>
+  MAIN_UC .> SUB2 : <<include>>
+
+  ' Extend relationship
+  OPTIONAL .|> MAIN_UC : <<extend>>\n{Selected by user}
+  note right of OPTIONAL
+    Extension point: Optional feature customization
+  end note
 }
 
-' Relationships
-ACT1 --> UC1
-ACT1 --> UC2
-ACT2 --> UC3
-ACT2 --> UC4
-ACT3 --> UC5
-UC4 --> UC5
-UC2 --> EXT
-
-' Notes
-note right of UC1
-  Notes can describe preconditions, constraints,
-  or additional info about the use case.
-end note
+' Actor interactions
+USER --> MAIN_UC
+ADMIN --> REPORT
+REPORT --> EXTDATA
 
 @enduml
