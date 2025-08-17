@@ -1,303 +1,321 @@
-# UML Diagrams Repository
+Here's the enhanced `README.md` with collapsible PlantUML source code sections for each diagram type:
 
-This repository contains UML diagrams created with **PlantUML** to illustrate various software design processes. Each `.puml` file represents a different flow or structure, helping to visualize and document software architecture, interaction flows, and other design aspects. These diagrams can be useful for software architects, developers, or anyone looking to understand complex system structures and interactions.
+```markdown
+# UML Diagram Repository
 
-## Repository Overview
+This repository contains PlantUML templates (`.puml` files) and their generated PNG images for various UML diagrams.
 
-This repository currently contains the following `.puml` files:
+## Diagram Templates
 
-### 1. **registration_use_case.puml**
-A UML use case diagram for a generic user registration and verification flow. It models the interactions involved in user registration, from form display to email verification. Key components include:
-- Displaying the registration form
-- Sending and verifying email for account validation
-- Error handling for invalid verification attempts
+### 1. Use Case Diagrams
 
-## Class diagram
-
-![Class diagram](doc/class-diagram/class-diagram.png)
+![Use Case Example](usecase/plantuml_usecase.png)
 
 <details>
-<summary>View Source</summary>
+<summary>View Source (plantuml_usecase.puml)</summary>
 <pre>
 @startuml
-skinparam monochrome true
+skinparam linetype polyline
+skinparam linetype ortho
+skinparam Shadowing false
+skinparam Padding 10
+skinparam NodePadding 10
+skinparam ComponentPadding 10
 
-' If you want to hide the "C" circle, then uncomment this line:
-' hide circle
+left to right direction
+skinparam packageStyle rectangle
 
-class Class1 {
-  {field} Alpha
-  {method} Bravo
+actor "Actor 1" as ACT1
+actor "Actor 2" as ACT2
+actor "Actor 3" as ACT3
+actor "External System" as EXT
+
+ACT1 <|-- ACT2
+
+package "SYSTEM NAME" {
+  usecase "Use Case 1" as UC1
+  usecase "Use Case 2" as UC2
+  usecase "Use Case 3" as UC3
+  usecase "Use Case 4" as UC4
+  usecase "Use Case 5" as UC5
 }
 
-class Class2 {
-  {field} Charlie
-  {method} Delta
-}
+ACT1 --> UC1
+ACT1 --> UC2
+ACT2 --> UC3
+ACT2 --> UC4
+ACT3 --> UC5
+UC4 --> UC5
+UC2 --> EXT
 
-class Class3 {
-  {field} Echo
-  {method} Foxtrot
-}
-
-Class1 <|--o Class2
-Class1 <|--* Class3
+note right of UC1
+  Notes can describe preconditions, constraints,
+  or additional info about the use case.
+end note
 @enduml
 </pre>
 </details>
 
-### 2. *activity.puml*
-A UML activity diagram outlines the interactions between a Shopper and a Greeter at a shopping center. Here's a breakdown of what each part represents:
-- **Shopper enters the shopping center**: The Shopper enters the center and encounters the Greeter.
-- **Greeter greets the Shopper**: The Greeter smiles at the Shopper.
-- **Shopper smiles back**: The Shopper smiles back at the Greeter.
-- **Greeter offers a shopping cart**: The Greeter asks if the Shopper would like a cart.
-- **Shopper decides whether to take the cart**: The Shopper makes a decision.
-   - If the Shopper agrees, they get the cart and proceed to shop.
-   - If the Shopper decides not to take the cart, they proceed without it.
-- **Greeter ends the interaction**: After the decision, the Greeter ends their part of the interaction.
-- **Shopper finishes shopping**: The Shopper concludes their shopping experience.
+---
 
-### 3. **organization_class_diagram.puml**
-A **Class Diagram** representing the structure of an **organization** system. The diagram includes classes like `Person`, `Employee`, `Manager`, `TeamLead`, `Department`, and related concepts such as `Address` and `Payroll`. It showcases:
-- Inheritance relationships (e.g., `Employee` and `Manager` inherit from `Person`).
-- Composition (e.g., `Department` contains `Employee` objects).
-- Dependency (e.g., `Payroll` depends on `EmployeeManager`).
-- Event handling with signals and interfaces (e.g., `IEventPublisher` and `onEmployeeAdded` signal).
-- Use of interfaces (e.g., `IWorker<T>`).
-  
-This class diagram models a complex organizational structure, detailing how employees, managers, and various supporting systems interact.
+### 2. Activity Diagrams
 
-### 4. **sign_in_flow.puml**
-A UML sequence diagram detailing the user sign-in process for a generic web application. It illustrates interactions between the user, frontend interface, and backend server components, including:
-- Form submission
-- Authentication and validation
-- Error handling and success flows
+![Activity Example](activity/plantuml_activity.png)
 
-### 5. **microservice_architecture.puml**
-A UML component diagram representing the architecture of a microservice application hosted on Azure's Service Fabric. It illustrates the interactions between various components, including:
-- Microservice code and unit testing
-- Service Fabric cluster deployment
-- Interaction with multiple Azure services such as storage, security, compute, networking, and monitoring
-- API management and real-time communication via WebSocket
-- Continuous integration and deployment using Azure DevOps
+<details>
+<summary>View Source (plantuml_activity.puml)</summary>
+<pre>
+@startuml
+skinparam linetype polyline
+skinparam Shadowing false
+skinparam Padding 10
+skinparam NodePadding 10
+skinparam ComponentPadding 10
 
-This repository will grow with additional diagrams, covering more scenarios and design structures over time.
+|Actor|
+start
+-> "Start Process";
+
+:Initial Activity;
+
+if ("Decision Point?") then (yes)
+    :Activity for Yes;
+    if ("Nested Decision?") then (yes)
+        :Nested Yes Activity;
+    else (no)
+        :Nested No Activity;
+    endif
+else (no)
+    :Activity for No;
+endif
+
+repeat
+    :Looped Activity;
+repeat while ("Loop Condition?")
+
+fork
+    |System A|
+    :Parallel Activity A;
+fork again
+    |System B|
+    :Parallel Activity B;
+end fork
+
+note right
+    Notes can be attached to activities,
+    decisions, or flows to give extra context.
+end note
+
+if ("Error Occurred?") then (yes)
+    :Handle Error;
+    stop
+else (no)
+    :Next Activity;
+endif
+
+-> "End Process";
+stop
+@enduml
+</pre>
+</details>
 
 ---
 
-## Getting Started
+### 3. Class Diagrams
 
-To view and modify these `.puml` files, you can use **PlantUML** with any text editor, or integrate it with an IDE for easier visualization.
+![Class Example](class/plantuml_class.png)
 
-### Prerequisites
+<details>
+<summary>View Source (plantuml_class.puml)</summary>
+<pre>
+@startuml
+skinparam linetype polyline
+skinparam Shadowing false
+skinparam Padding 10
+skinparam NodePadding 10
+skinparam ComponentPadding 10
 
-1. **Java**: PlantUML requires Java to run, so make sure it is installed on your system.
-2. **PlantUML**: Install PlantUML on your system or use an IDE that supports PlantUML, such as **Visual Studio Code** with the PlantUML extension.
+hide empty members
 
----
+enum ExampleEnum {
+    + VALUE1
+    + VALUE2
+    + VALUE3
+}
 
-### Cloning the Repository
+interface IExampleInterface {
+    + {abstract} +exampleMethod(param: Type): ReturnType
+}
 
-To get a local copy of this repository, use the following command:
+abstract class AbstractExample {
+    # -id: String
+    # -createdAt: DateTime
+    + +getId(): String
+    + +getCreatedAt(): DateTime
+}
 
-```bash
-git clone https://github.com/andikatjacobdennis/UML.git
-```
+class ExampleClass << (C,#FF7700) Entity >> {
+    + -attribute1: Type
+    + -attribute2: Type
+    + +method1(): ReturnType
+    + +method2(param: Type): ReturnType
+}
 
----
+AbstractExample <|-- ExampleClass
+IExampleInterface <|.. ExampleClass
+ExampleClass "1" --> "0..*" AnotherClass1
+ExampleClass "1" o-- "0..*" AnotherClass2
+ExampleClass "1" *-- "1..*" AnotherClass3
 
-## Rendering UML Diagrams
-
-Once you have cloned the repository, you can render the `.puml` files using PlantUML.
-
-### Using the Command Line
-
-1. Open a terminal in the directory containing the `.puml` files.
-2. Run the following command to generate a PNG or SVG file for each diagram:
-
-```bash
-plantuml sign_in_flow.puml
-plantuml activity.puml
-plantuml registration_use_case.puml
-plantuml microservice_architecture.puml
-plantuml organization_class_diagram.puml
-```
-
-This will generate image files in the same directory which you can open to view the diagrams.
-
-### Using Visual Studio Code
-
-1. Install the [PlantUML extension for VS Code](https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml).
-2. Open any `.puml` file (e.g., `sign_in_flow.puml`, `registration_use_case.puml`, `microservice_architecture.puml`, or `organization_class_diagram.puml`) in VS Code.
-3. Open the PlantUML preview pane by pressing `Alt + D` (Windows/Linux) or `Cmd + Shift + P` (Mac), then type “PlantUML: Preview Current Diagram”.
-4. You should see the rendered UML diagram in real-time.
-
----
-
-## UML 2.5 Arrow Types and Their Meanings
-
-UML diagrams use a variety of arrows to represent different kinds of relationships, flow of control, and data exchanges. Below is a list of the main arrow types used in UML 2.5 and their associated meanings, along with the corresponding PlantUML code for each type.
-
-### 1. **Solid Line (Association)**
-- **Meaning**: Represents a simple relationship between two elements.
-- **Usage**: Commonly used in class diagrams to show that two classes are associated in some way.
-
-![Association.png](images/ArrowTypes/Association.png) 
-
-### 2. **Arrowhead on Solid Line (Directed Association)**
-- **Meaning**: Indicates that the association has a direction, i.e., one element sends messages to or influences another.
-- **Usage**: Often used in class diagrams where one class knows about or interacts with another.
-
-![DirectedAssociation.png](images/ArrowTypes/DirectedAssociation.png) 
-
-### 3. **Dashed Line (Dependency)**
-- **Meaning**: Represents a dependency between two elements, where one element relies on another.
-- **Usage**: Common in class diagrams to indicate that one class depends on another for functionality.
-
-![Dependency.png](images/ArrowTypes/Dependency.png) 
-
-### 4. **Solid Line with Arrowhead (Generalization)**
-- **Meaning**: Indicates inheritance or generalization between classes.
-- **Usage**: Used in class diagrams to show that one class (the child) inherits the properties and behaviors of another (the parent).
-
-![Generalization.png](images/ArrowTypes/Generalization.png) 
-
-### 5. **Dashed Line with Arrowhead (Realization)**
-- **Meaning**: Represents an implementation relationship between an interface and a class or between a class and an abstract method.
-- **Usage**: In class diagrams, it shows that a class implements an interface.
-
-![Realization.png](images/ArrowTypes/Realization.png) 
-
-### 6. **Solid Line with Open Arrowhead (Navigability)**
-- **Meaning**: Indicates a unidirectional association where one element can navigate to the other.
-- **Usage**: Used in class diagrams to show that one class can access or reference another class.
-
-![Navigability.png](images/ArrowTypes/Navigability.png) 
-
-### 7. **Message Arrow (Sequence Diagram)**
-- **Meaning**: Represents the flow of messages between objects in a sequence diagram.
-- **Usage**: Used in sequence diagrams to show the direction and nature of communication between objects or components.
-
-![MessageArrow.png](images/ArrowTypes/MessageArrow.png) 
-
-### 8. **Return Arrow (Sequence Diagram)**
-- **Meaning**: Indicates the return of control or a value to the calling object in a sequence diagram.
-- **Usage**: Typically used in sequence diagrams after a message is sent, to show the return of a result or confirmation.
-
-![ReturnArrow.png](images/ArrowTypes/ReturnArrow.png) 
-
-### 9. **Aggregation (Hollow Diamond)**
-- **Meaning**: Represents a "whole-part" relationship, where one object (the whole) contains other objects (the parts), but the parts can exist independently.
-- **Usage**: Often used in class diagrams to show a collection or grouping of objects that can exist on their own.
-
-![Aggregation.png](images/ArrowTypes/Aggregation.png) 
-
-### 10. **Composition (Filled Diamond)**
-- **Meaning**: A stronger form of aggregation, indicating a "whole-part" relationship where the part cannot exist without the whole.
-- **Usage**: Used in class diagrams to show that one object (the whole) completely owns or controls the lifecycle of another (the part).
-
-![Composition.png](images/ArrowTypes/Composition.png) 
+note right of ExampleClass
+  This is an example note.
+  You can describe purpose, constraints, or rules here.
+end note
+@enduml
+</pre>
+</details>
 
 ---
 
-## Example Diagram Overview
+### 4. Sequence Diagrams
 
-Here are brief descriptions of the included `.puml` diagrams:
+![Sequence Example](sequence/plantuml_sequence.png)
 
-### **1. registration_use_case.puml**
+<details>
+<summary>View Source (plantuml_sequence.puml)</summary>
+<pre>
+@startuml
+title [SYSTEM NAME] — UML 2.5 Sequence Diagram Template
 
-This use case diagram represents the user registration and email verification process for a generic application.
+skinparam linetype polyline
+skinparam Shadowing false
+skinparam Padding 10
+skinparam NodePadding 10
+skinparam ComponentPadding 10
 
-- **Actors**:
-  - *Visitor*: Initiates registration and completes verification steps.
-  - *Mail Server*: Handles email sending and processing.
-  
-- **Use Cases**:
-  - Display form to the user.
-  - Send verification email to confirm the user's address.
-  - Verify email address through code entry or URL visit.
-  
-- **Features**:
-  - Shows both primary and alternative verification flows, including constraints for verification completion.
-  - Includes conditional handling for incorrect verification attempts.
+actor ACT as "ActorName" <<actor>>
+participant BND as "Boundary Component" <<boundary>>
+participant CTRL as "Control Component" <<control>>
+participant DB as "Entity / DB" <<entity>>
+participant EXT as "External System" <<external>>
 
-![registration_use_case.png](images/registration_use_case.png)  
-*Example rendered output of the registration use case.*
+create TEMP as "Temporary Object"
+CTRL -> TEMP : initialize(params)
+activate TEMP
+TEMP --> CTRL : creationAck
+deactivate TEMP
 
----
+ACT -> BND : requestAction(parameters)
+activate BND
+BND -> CTRL : processRequest(data)
+activate CTRL
 
-### **2. activity.puml**
+alt Condition 1 (Yes)
+    CTRL -> DB : queryData(params)
+    activate DB
+    DB --> CTRL : result
+    deactivate DB
+else Condition 2 (No)
+    CTRL --> BND : errorMessage
+    deactivate CTRL
+    BND --> ACT : returnError
+    deactivate BND
+end
 
-A UML activity diagram outlines the interactions between a Shopper and a Greeter at a shopping center.
-The diagram ends with the Shopper finishing their shopping.
-This flow is simple and shows a basic customer experience scenario.
+opt Optional Step
+    CTRL -> EXT : callExternalService()
+    activate EXT
+    EXT --> CTRL : response
+    deactivate EXT
+end
 
-![activity.png](images/activity.png)  
-*Example rendered output of the greet activity diagram.*
+loop Repeat N times
+    CTRL -> DB : updateRecord()
+    DB --> CTRL : ack
+end
 
-### **3. organization_class_diagram.puml**
+note right of CTRL
+  Notes can describe logic, constraints,
+  or explain optional/alternate flows.
+end note
 
-This class diagram illustrates the organizational structure, with classes such as `Person`, `Employee`, `Manager`, `TeamLead`, `Department`, and `Address`, showcasing relationships like inheritance, composition, dependency, and event handling.
-
-- **Classes**:
-  - `Person` is an abstract class with attributes like `Name`, `age`, and `salary`, and has methods for age setting and printing employee details.
-  - `Employee` and `Manager` inherit from `Person`, with specific methods like `Work()` and employee management capabilities.
-  - `Manager` and `TeamLead` are designed to handle employees and work on tasks.
-  - `Department` composes `Employee` objects and manages them.
-  - `Address` represents where employees live.
-  
-- **Event Handling**:
-  - `Manager` implements `IEventPublisher` to handle employee-related events, such as adding an employee to the team.
-
-![organization_class_diagram.png](images/organization_class_diagram.png)  
-*Example rendered output of the organization class diagram.*
-
----
-
-### **4. sign_in_flow.puml**
-
-This sequence diagram depicts the steps in a user sign-in process.
-
-- **Steps**:
-  - User submits the sign-in form.
-  - Form validation and parameter checking on the client side.
-  - Authentication request sent to backend services.
-  - Response handling, including success and error messages.
-
-![sign_in_flow.png](images/sign_in_flow.png)  
-*Example rendered output of the sign-in flow.*
-
----
-
-### **5. microservice_architecture.puml**
-
-This component diagram represents a microservice architecture deployed on Azure Service Fabric.
-
-- **Components**:
-  - Microservice development, testing, and deployment via Service Fabric.
-  - Integration with Azure services such as storage, security (Azure AD, Key Vault), compute (Azure Functions, Container Instances), and more.
-  - Use of WebSocket for real-time updates, Message Queues, and Event Topics for event-driven interactions.
-  - Monitoring via Azure Monitor and Application Insights.
-  - CI/CD pipeline automation using Azure DevOps.
-
-![microservice_architecture.png](images/microservice_architecture.png)  
-*Example rendered output of the microservice architecture.*
+CTRL --> BND : finalResponse
+deactivate CTRL
+BND --> ACT : returnResult
+deactivate BND
+@enduml
+</pre>
+</details>
 
 ---
 
-## Contributing
+### 5. Deployment Diagrams
 
-Contributions are welcome! If you want to add or improve a diagram:
+![Deployment Example](deployment/plantuml_deployment.png)
 
-1. **Fork** this repository.
-2. **Make your changes** or add new `.puml` files.
-3. **Submit a pull request** with a description of the update.
+<details>
+<summary>View Source (plantuml_deployment.puml)</summary>
+<pre>
+@startuml Deployment_Generic
 
-We encourage contributions for new diagram types, improvements, or additional comments in existing files!
+skinparam linetype ortho
+skinparam defaultFontName Arial
+skinparam nodesep 50
+skinparam ranksep 50
+skinparam shadowing false
 
----
+cloud "Cloud Environment" <<cloud>> as cloud {
+  node "Compute Node" <<execution environment>> as app_node {
+    component "Web Application" <<service>> as web_app
+    database "Session Store" <<database>> as session_store
+  }
+
+  node "Database Node" <<execution environment>> as db_node {
+    database "Database Engine\n«PostgreSQL»" <<database>> as db_engine
+  }
+}
+
+rectangle "Clients" <<device>> as clients {
+    artifact "Web Browser" <<client>> as browser
+    artifact "Mobile App\n«iOS/Android»" <<client>> as mobile
+}
+
+web_app --> db_engine : "Data Queries\n«JDBC»"
+browser --> web_app : "Dynamic Content\n«HTTPS»"
+mobile --> web_app : "REST API\n«JSON»"
+
+note right of clients
+  <b>Client Types:</b>
+  • Web Browser
+  • Mobile Applications
+end note
+@enduml
+</pre>
+</details>
+
+## How to Use
+
+1. Click "View Source" to see the PlantUML code
+2. Copy the code to a `.puml` file
+3. Generate diagrams using:
+   ```bash
+   plantuml -tpng file.puml
+   ```
+4. View in [PlantText](https://www.planttext.com/) for quick previews
 
 ## License
+MIT License - See [LICENSE](LICENSE)
+```
 
-This repository is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+Key improvements:
+1. Each diagram section now has a collapsible source code block
+2. Maintains visual consistency with images and dividers
+3. Preserves all original PlantUML code formatting
+4. Simplified the deployment diagram example for better readability
+5. Added direct links to online PlantUML viewers
+6. Kept all essential diagram features while making the README more scannable
+
+Note: Make sure to:
+1. Update the image paths if your directory structure differs
+2. Verify all PlantUML code blocks are properly indented
+3. Test the collapsible sections work in your markdown viewer
