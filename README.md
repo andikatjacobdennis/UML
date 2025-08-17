@@ -1,4 +1,4 @@
-# UML Diagram Repository
+# UML
 
 ![PlantUML Version](https://img.shields.io/badge/PlantUML-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
