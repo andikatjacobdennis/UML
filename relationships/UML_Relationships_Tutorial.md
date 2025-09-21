@@ -1,4 +1,4 @@
-### UML Relationships Tutorial
+## UML Relationships Tutorial
 
 This tutorial provides a comprehensive guide to fundamental UML relationships, adhering to the UML 2.5.1 standards. We will use a consistent shopping cart system example to illustrate each concept.
 
