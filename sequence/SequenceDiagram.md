@@ -134,6 +134,8 @@ Stakeholders should review the diagram to confirm its accuracy and completeness.
 
 ## Step 7: PlantUML Representation
 
+[![Sequence Diagram](checkout-process-sequence-diagram.svg)](checkout-process-sequence-diagram.svg)
+
 The following PlantUML script defines the Sequence Diagram for the Checkout process:
 
 ```plantuml
