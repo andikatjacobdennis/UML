@@ -120,6 +120,7 @@ Order "1" *-- "1..*" OrderLine : consists of
 ```
 
 **Diagram:**
+
 ![Composition Diagram](composition.svg)
 
 -----
