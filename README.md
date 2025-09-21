@@ -21,7 +21,7 @@ This repository contains **PlantUML templates (`.puml` files)** along with their
 
 [![Activity Diagram](activity/checkout-diagram.svg)](activity/checkout-diagram.puml)
 
-**Source Code:** [activity/ActivityDiagram.puml](activity/ActivityDiagram.puml)
+**Source Code:** [activity/checkout-diagram.puml](activity/checkout-diagram.puml)
 
 ---
 
