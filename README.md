@@ -19,9 +19,9 @@ This repository contains **PlantUML templates (`.puml` files)** along with their
 
 ### 2. Activity Diagrams
 
-[![Activity Diagram](activity/plantuml_activity.svg)](activity/plantuml_activity.puml)
+[![Activity Diagram](activity/checkout-diagram.svg)](activity/checkout-diagram.puml)
 
-**Source Code:** [activity/plantuml\_activity.puml](activity/plantuml_activity.puml)
+**Source Code:** [activity/ActivityDiagram.puml](activity/ActivityDiagram.puml)
 
 ---
 
