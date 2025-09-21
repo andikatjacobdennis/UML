@@ -35,7 +35,7 @@ This repository contains **PlantUML templates (`.puml` files)** along with their
 
 ### 4. Sequence Diagrams
 
-[![Sequence Diagram](sequence/plantuml_sequence.svg)](sequence/plantuml_sequence.puml)
+[![Sequence Diagram](sequence/checkout-process-sequence-diagram.svg)](sequence/checkout-process-sequence-diagram.puml)
 
 **Source Code:** [sequence/SequenceDiagram.md](sequence/SequenceDiagram.md)
 
