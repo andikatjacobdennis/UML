@@ -1,0 +1,200 @@
+@startuml
+' Title
+title Shopping Cart System Class Diagram
+
+' ===========================
+' Packages
+' ===========================
+package "User Management" {
+  interface IPaymentProcessor {
+    +validatePayment(): Boolean
+    +processPayment(amount: Double): Boolean
+  }
+  abstract class User {
+    -userId: String
+    -email: String
+    #name: String
+    +getProfile(): Map<String, String>
+  }
+  class Customer {
+    -customerId: String
+    -password: String
+    -addresses: List<Address>
+    -paymentMethods: List<PaymentMethod>
+    +register(): Boolean
+    +login(password: String): Boolean
+    +updateProfile(updates: Map<String, String>): Boolean
+  }
+  class GuestUser {
+    -sessionId: String
+    -expiration: DateTime
+    +convertToCustomer(registrationData: Map<String, String>): Customer
+  }
+  class Administrator {
+    -adminId: String
+    -permissions: List<String>
+    +addProduct(productData: Map<String, Object>): Boolean
+    +updateProduct(productId: String, updates: Map<String, Object>): Boolean
+    +deleteProduct(productId: String): Boolean
+    +manageInventory(productId: String, adjustment: Integer): Boolean
+  }
+  class Address {
+    -addressId: String
+    -street: String
+    -city: String
+    -state: String
+    -postalCode: String
+    -country: String
+    +formatAddress(): String
+  }
+  class PaymentMethod {
+    -methodId: String
+    -type: String
+    -details: Map<String, String>
+    +validateDetails(): Boolean
+  }
+}
+
+package "Cart Management" {
+  class ShoppingCart {
+    -cartId: String
+    -items: Map<String, CartItem>
+    -createdDate: DateTime
+    -lastModified: DateTime
+    +addItem(productId: String, quantity: Integer): Boolean
+    +removeItem(productId: String): Boolean
+    +updateItemQuantity(productId: String, quantity: Integer): Boolean
+    +getItems(): List<CartItem>
+    +calculateTotal(): Double
+    +clearCart(): void
+  }
+  class CartItem {
+    -itemId: String
+    -productId: String
+    -quantity: Integer
+    -addedDate: DateTime
+    +updateQuantity(qty: Integer): Boolean
+    +getSubtotal(price: Double): Double
+  }
+}
+
+package "Product Management" {
+  interface IInventoryManager {
+    +checkStock(productId: String): Integer
+    +updateStock(productId: String, qty: Integer): Boolean
+  }
+  class Product {
+    -productId: String
+    -name: String
+    -description: String
+    -price: Double
+    -stockQuantity: Integer
+    -category: String
+    -isActive: Boolean
+    +updateStock(qty: Integer): Boolean
+    +getDetails(): Map<String, Object>
+    +isAvailable(): Boolean
+  }
+}
+
+package "Order Management" {
+  class Order {
+    -orderId: String
+    -customerId: String
+    -items: List<OrderItem>
+    -shippingAddress: Address
+    -billingAddress: Address
+    -orderDate: DateTime
+    -status: OrderStatus
+    -totalAmount: Double
+    -taxAmount: Double
+    -shippingCost: Double
+    +calculateTotal(): Double
+    +confirmOrder(): Boolean
+    +updateStatus(newStatus: OrderStatus): Boolean
+  }
+  class OrderItem {
+    -orderItemId: String
+    -productId: String
+    -quantity: Integer
+    -unitPrice: Double
+    +getLineTotal(): Double
+  }
+  class Payment {
+    -paymentId: String
+    -orderId: String
+    -amount: Double
+    -paymentMethod: String
+    -paymentDate: DateTime
+    -status: PaymentStatus
+    -transactionId: String
+    +processPayment(): PaymentResult
+    +validatePayment(): Boolean
+    +refund(amount: Double): Boolean
+  }
+}
+
+package "Common Types" {
+  enum OrderStatus {
+    PENDING
+    CONFIRMED
+    PROCESSING
+    SHIPPED
+    DELIVERED
+    CANCELLED
+    REFUNDED
+  }
+  enum PaymentStatus {
+    PENDING
+    PROCESSING
+    COMPLETED
+    FAILED
+    REFUNDED
+    CANCELLED
+  }
+}
+
+' ===========================
+' Relationships
+' ===========================
+User <|-- Customer
+User <|-- Administrator
+Customer <|-- GuestUser
+Customer "1" -- "0..1" ShoppingCart : owns
+Customer "1" -- "0..*" Order : places
+ShoppingCart "1" *-- "0..*" CartItem : contains
+CartItem "1" --> "1" Product : references
+Order "1" *-- "1..*" OrderItem : contains
+OrderItem "1" --> "1" Product : references
+Order "1" -- "0..1" Payment : has
+Payment ..|> IPaymentProcessor : implements
+Product ..|> IInventoryManager : implements
+Administrator ..|> IInventoryManager : implements
+Customer "1" -- "0..*" Address : has
+Customer "1" -- "0..*" PaymentMethod : uses
+
+' ===========================
+' Notes
+' ===========================
+note top of GuestUser
+  Guest users have limited functionality
+  and their cart data expires after a period
+  of inactivity. They can convert to registered
+  customers to preserve their data.
+end note
+note right of IPaymentProcessor
+  Defines contract for payment processing,
+  enabling integration with multiple payment
+  gateways (Credit Card, PayPal, etc.)
+end note
+note right of IInventoryManager
+  Defines contract for inventory management,
+  implemented by Product and Administrator
+  for centralized stock control
+end note
+note right of Order
+  Orders are separate from shopping carts
+  to preserve transaction data even if
+  the original cart is modified or deleted
+end note
+@enduml
