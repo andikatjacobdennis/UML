@@ -2,7 +2,7 @@
 
 ![PlantUML Version](https://img.shields.io/badge/PlantUML-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
-![UML Version](https://img.shields.io/badge/UML-2.5.1)
+![UML Version](https://img.shields.io/badge/UML-2.5.1-black)
 
 This repository provides comprehensive **UML 2.5.1 diagram documentation** with detailed explanations, visual references, and ready-to-use PlantUML templates. Designed for **software developers, system architects, and business analysts**, it supports efficient modeling, documentation, and maintenance of software systems using industry-standard UML conventions.
 
