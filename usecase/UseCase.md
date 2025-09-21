@@ -118,21 +118,24 @@ Below is a PlantUML script to generate the complete Use Case Diagram for the sho
 ```plantuml
 @startuml
 left to right direction
-
+'-----------------------
 ' Actors
+'-----------------------
 actor Customer
 actor Administrator
 actor GuestUser
-GuestUser -|> Customer
-' Generalization: GuestUser inherits from Customer
-
+GuestUser -|> Customer : GuestUser inherits from Customer
+'-----------------------
 ' System Boundary
+'-----------------------
 rectangle "Online Shopping System" {
-
+  '-----------------------
   ' Package for Grouping
+  '-----------------------
   package "Shopping Cart Module" {
-
+    '-----------------------
     ' Use Cases
+    '-----------------------
     usecase "Browse Products" as UC1
     usecase "Add Item to Cart" as UC2
     usecase "Remove Item from Cart" as UC3
@@ -142,12 +145,12 @@ rectangle "Online Shopping System" {
     usecase "Validate Inventory" as UC7
     usecase "Apply Discount" as UC8
     usecase "Guest Checkout" as UC9
-    UC9 -|> UC5
-    ' Generalization: Guest Checkout specializes Checkout
+    UC9 -|> UC5 : Guest Checkout specializes Checkout
   }
 }
-
+'-----------------------
 ' Actor-Use Case Associations
+'-----------------------
 Customer --> UC1
 Customer --> UC2
 Customer --> UC3
@@ -159,11 +162,11 @@ GuestUser --> UC2
 GuestUser --> UC4
 GuestUser --> UC9
 Administrator --> UC7
-
+'-----------------------
 ' Relationships
-UC5 ..> UC4 : <<include>>  ' Checkout includes View Cart
-UC5 ..> UC7 : <<include>>  ' Checkout includes Validate Inventory
-UC8 ..> UC5 : <<extend>>   ' Apply Discount extends Checkout
-UC2 ..> UC4 : <<dependency>>  ' Add Item relies on View Cart
+'-----------------------
+UC5 ..> UC4 : <<include>> ' Checkout includes View Cart
+UC5 ..> UC7 : <<include>> ' Checkout includes Validate Inventory
+UC8 ..> UC5 : <<extend>> ' Apply Discount extends Checkout
+UC2 ..> UC4 : <<dependency>> ' Add Item relies on View Cart
 @enduml
-```
