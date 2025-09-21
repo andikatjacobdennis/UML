@@ -135,6 +135,8 @@ Validation ensures:
 
 ## Step 8: Example PlantUML Representation
 
+[![Class Diagram](shopping-cart-deployment-diagram.svg)](shopping-cart-deployment-diagram.svg)
+
 The following PlantUML code visualizes the **Shopping Cart System Deployment**:
 
 ```plantuml
