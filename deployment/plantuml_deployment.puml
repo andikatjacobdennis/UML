@@ -1,5 +1,4 @@
 @startuml
-
 ' ================================
 ' Style / Layout
 ' ================================
@@ -44,17 +43,21 @@ skinparam cloud<<cloud>> {
 ' Cloud / Nodes
 ' ================================
 cloud "Cloud Environment" <<cloud>> as cloud {
-  node "Compute Node" <<execution environment>> as app_node {
-    component "Web Application" <<service>> as web_app
-    database "Session Store" <<database>> as session_store
+  node "Application Server" <<execution environment>> as app_node {
+    component "ShoppingCart Service" <<service>> as cart_service
+    component "Order Service" <<service>> as order_service
+    component "Payment Service" <<service>> as payment_service
+    component "Product Service" <<service>> as product_service
   }
 
-  node "Database Node" <<execution environment>> as db_node {
-    database "Database Engine\n«PostgreSQL»" <<database>> as db_engine
+  node "Database Server" <<execution environment>> as db_node {
+    database "UserDB\n«PostgreSQL»" <<database>> as user_db
+    database "OrderDB\n«PostgreSQL»" <<database>> as order_db
+    database "ProductDB\n«PostgreSQL»" <<database>> as product_db
   }
 
   node "Cache Node" <<execution environment>> as cache_node {
-    component "Cache System\n«Redis»" <<service>> as cache_system
+    component "Session Cache\n«Redis»" <<service>> as session_cache
   }
 
   node "Storage Node" <<execution environment>> as storage_node {
@@ -79,12 +82,28 @@ rectangle "Clients" <<device>> as clients {
     artifact "Desktop App\n«Windows/macOS»" <<client>> as desktop
 }
 
+rectangle "External Systems" <<device>> as external {
+    artifact "Payment Gateway\n«External»" <<client>> as payment_gateway
+}
+
 ' ================================
 ' Relationships
 ' ================================
-web_app --> db_engine : "Data Queries\n«JDBC»"
-web_app --> cache_system : "Cache Access\n«Redis Protocol»"
-web_app --> file_storage : "File Storage\n«REST API»"
+cart_service --> user_db : "Read/Write User Data\n«JDBC»"
+cart_service --> session_cache : "Session Management\n«Redis»"
+cart_service --> product_service : "Retrieve Product Info\n«REST API»"
+
+order_service --> order_db : "Persist Orders\n«JDBC»"
+order_service --> product_service : "Update Inventory\n«REST API»"
+order_service --> payment_service : "Process Payment\n«IPaymentProcessor»"
+
+payment_service --> payment_gateway : "Process Transaction\n«HTTPS»"
+
+web_app --> cart_service : "Dynamic Requests\n«HTTPS/REST»"
+web_app --> order_service : "Order Requests\n«HTTPS/REST»"
+web_app --> payment_service : "Payment Requests\n«HTTPS/REST»"
+web_app --> product_service : "Product Info Requests\n«HTTPS/REST»"
+
 edge_cache --> file_storage : "Origin Pull\n«HTTPS»"
 
 browser --> edge_cache : "Static Content\n«HTTP/2»"
@@ -93,7 +112,9 @@ mobile --> web_app : "REST API\n«JSON»"
 desktop --> web_app : "SOAP API\n«XML»"
 
 ci_cd ..> web_app : "Deployment\n«SSH»"
-ci_cd ..> db_engine : "Schema Updates\n«Flyway»"
+ci_cd ..> user_db : "Schema Updates\n«Flyway»"
+ci_cd ..> order_db : "Schema Updates\n«Flyway»"
+ci_cd ..> product_db : "Schema Updates\n«Flyway»"
 
 ' ================================
 ' Notes / Legend
@@ -111,11 +132,17 @@ note left of onprem
   • «artifact» Deployment packages
 end note
 
+note right of external
+  <b>External Systems:</b>
+  • Payment Gateway
+  • Processes payments securely
+end note
+
 note bottom of cloud
   <b>Cloud Components:</b>
-  • «service» Web Application
-  • «database» Data Stores
-  • «service» Cache System
+  • «service» ShoppingCart, Order, Payment, Product Services
+  • «database» UserDB, OrderDB, ProductDB
+  • «service» Session Cache
   • «service» File Storage
   • «service» CDN Edge
 end note
@@ -128,5 +155,4 @@ legend right
   | «client» | End-user client |
   | «deployer» | Deployment system |
 endlegend
-
 @enduml
