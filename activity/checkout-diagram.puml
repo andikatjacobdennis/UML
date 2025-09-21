@@ -1,0 +1,55 @@
+@startuml
+title Checkout Activity Diagram
+
+start
+
+partition Customer {
+  :Enter Payment Details;
+}
+
+partition System {
+  :Display Order Summary;
+  note right: Shows items, prices,\nand total amount
+
+  :Validate Payment and Inventory;
+  note right: Checks card validity\nand stock availability
+
+  fork
+    :Check Timeout <<timeEvent>>;
+    note right: 2-minute timeout\nfor completion
+  fork again
+    :Process Payment via Gateway;
+  end fork
+
+  if (Timed out?) then (yes)
+    :Auto-Cancel Order;
+  else (no)
+    if (Payment Successful?) then (yes)
+      fork
+        :Update Inventory;
+        note right: Reduce stock levels
+      fork again
+        :Send Confirmation Email;
+        note right: Order confirmation\nwith details
+      end fork
+      :Generate Order Number;
+    else (no)
+      :Handle Payment Error;
+      note right: Display error message\nto customer
+
+      if (Allow Retry? and Attempts remaining?) then (yes)
+        :Clear Previous Payment Data;
+        note right: Prepare for new\npayment attempt
+        -> :Enter Payment Details;  'loop back to retry
+      else (no)
+        :Cancel Checkout;
+      endif
+    endif
+  endif
+}
+
+:End Checkout Process;
+note right: Session completed\nwith final status
+
+stop
+@enduml
