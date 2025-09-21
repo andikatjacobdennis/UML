@@ -1,6 +1,6 @@
 # UML 2 Use Case Diagram Tutorial: Modeling a Shopping Cart System
 
-This module provides a comprehensive guide to creating a Use Case Diagram following UML 2 standards, using a **shopping cart system** as a practical example. Use Case Diagrams are essential for capturing the functional requirements of a system by illustrating interactions between actors and use cases. This tutorial is designed for developers, analysts, and designers aiming to document system behavior effectively, and it can be integrated into a GitHub repository for version-controlled documentation.
+This module provides a comprehensive guide to creating a Use Case Diagram following UML 2 standards, using a **shopping cart system** as a practical example. Use Case Diagrams are essential for capturing the functional requirements of a system by illustrating interactions between actors and use cases. This tutorial is designed for developers, analysts, and designers aiming to document system behavior effectively.
 
 ---
 
