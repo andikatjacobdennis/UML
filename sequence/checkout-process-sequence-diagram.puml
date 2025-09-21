@@ -1,1 +1,130 @@
+@startuml
+title Shopping Cart System — Checkout UML 2.5 Sequence Diagram
 
+skinparam linetype polyline
+skinparam Shadowing false
+skinparam Padding 10
+skinparam NodePadding 10
+skinparam ComponentPadding 10
+
+actor Customer as ":Customer" <<actor>>
+control ShoppingCart as ":ShoppingCart" <<control>>
+control CartItem as ":CartItem" <<control>>
+entity Product as ":Product" <<entity>>
+control Order as ":Order" <<control>>
+control OrderItem as ":OrderItem" <<control>>
+control Payment as ":Payment" <<control>>
+entity Address as ":Address" <<entity>>
+control PaymentMethod as ":PaymentMethod" <<control>>
+participant Gateway as "ExternalPaymentGateway" <<external>>
+
+note left of Customer
+  Customer can be a registered
+  Customer or GuestUser
+end note
+note right of Payment
+  Payment realizes IPaymentProcessor
+  for payment operations
+end note
+note right of Product
+  Product realizes IInventoryManager
+  for inventory operations
+end note
+
+== Step 1: Calculate Total ==
+Customer -> ShoppingCart: (1.1) calculateTotal()
+activate ShoppingCart
+loop for each item
+  ShoppingCart -> CartItem: (1.2) getSubtotal(price: Double)
+  activate CartItem
+  CartItem -> Product: (1.3) getDetails()
+  activate Product
+  Product --> CartItem: (1.4) Map<String, Object>
+  deactivate Product
+  CartItem --> ShoppingCart: (1.5) Double
+  deactivate CartItem
+end
+ShoppingCart --> Customer: (1.6) total: Double
+deactivate ShoppingCart
+
+== Step 2: Validate Inventory ==
+loop for each item
+  Customer -> Product: (2.1) IInventoryManager::checkStock(productId)
+  activate Product
+  alt stock available
+    Product --> Customer: (2.2) stock: Integer
+  else stock unavailable
+    Product --> Customer: (2.3) throw InsufficientStockException
+    Customer --> Customer: (2.4) cancel checkout
+    return
+  end
+  deactivate Product
+end
+
+== Step 3: Create Order ==
+Customer -> Order: (3.1) create(customerId, items, shippingAddress, billingAddress)
+activate Order
+Order -> Address: (3.2) formatAddress() [shipping]
+activate Address
+Address --> Order: (3.3) formattedAddress
+deactivate Address
+Order -> Address: (3.4) formatAddress() [billing]
+activate Address
+Address --> Order: (3.5) formattedAddress
+deactivate Address
+loop for each cart item
+  Order -> OrderItem: (3.6) create(productId, quantity, unitPrice)
+  activate OrderItem
+  OrderItem -> Product: (3.7) getDetails()
+  activate Product
+  Product --> OrderItem: (3.8) Map<String, Object>
+  deactivate Product
+  OrderItem --> Order: (3.9) orderItem
+  deactivate OrderItem
+end
+Order --> Customer: (3.10) orderId: String
+deactivate Order
+
+== Step 4: Validate Payment ==
+Customer -> Payment: (4.1) validatePayment()
+activate Payment
+Payment -> PaymentMethod: (4.2) validateDetails()
+activate PaymentMethod
+PaymentMethod --> Payment: (4.3) isValid: Boolean
+deactivate PaymentMethod
+alt payment details valid
+  Payment --> Customer: (4.4) true
+else payment details invalid
+  Payment --> Customer: (4.5) false
+  Customer -> Order: (4.6) updateStatus(OrderStatus::CANCELLED)
+  return
+end
+deactivate Payment
+
+== Step 5: Process Payment ==
+Customer -> Payment: (5.1) IPaymentProcessor::processPayment(amount)
+activate Payment
+Payment -> Gateway: (5.2) processTransaction(amount)
+activate Gateway
+alt payment successful
+  Gateway --> Payment: (5.3) transactionId
+  Payment -> Product: (5.4) IInventoryManager::updateStock(productId, qty)
+  activate Product
+  Product --> Payment: (5.5) success: Boolean
+  deactivate Product
+  Payment --> Customer: (5.6) PaymentResult { success: true, transactionId }
+  Customer -> Order: (5.7) updateStatus(OrderStatus::CONFIRMED)
+else payment failed
+  Gateway --> Payment: (5.8) throw PaymentFailedException
+  Payment --> Customer: (5.9) PaymentResult { success: false }
+  Customer -> Order: (5.10) updateStatus(OrderStatus::CANCELLED)
+end
+deactivate Gateway
+deactivate Payment
+
+note right of Order
+  Order status updated to CONFIRMED
+  or CANCELLED based on payment outcome
+end note
+
+@enduml
