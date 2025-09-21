@@ -21,8 +21,6 @@ This repository provides comprehensive **UML 2.5.1 diagram documentation** with 
 
 ### 1. UML Relationships Tutorial
 
-[![UML Relationships](relationships/uml-relationships-diagram.svg)](relationships/UML_Relationships_Tutorial.md)
-
 **Documentation:** [UML_Relationships_Tutorial.md](relationships/UML_Relationships_Tutorial.md) – A dedicated tutorial on the primary UML relationships: Association, Directed Association, Multiplicity, Aggregation, Composition, Dependency, Generalization, and Realization.
 
 ---
