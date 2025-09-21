@@ -83,8 +83,6 @@ java -jar plantuml.jar -tsvg diagram.puml    # SVG output
 |-------------|--------|
 | **VS Code** | [PlantUML Extension](https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml) |
 
-> 💡 Most plugins support real-time preview, syntax highlighting, and export functionality.
-
 ---
 
 ## Best Practices
