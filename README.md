@@ -13,7 +13,7 @@ This repository contains **PlantUML templates (`.puml` files)** along with their
 
 [![Use Case Diagram](usecase/use-case-diagram.svg)](usecase/use-case-diagram.svg)
 
-**Source Code:** [usecase/use-case-diagram.puml](usecase/use-case-diagram.puml)
+**Source Code:** [usecase/UseCase.md](usecase/UseCase.md)
 
 ---
 
