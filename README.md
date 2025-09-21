@@ -43,7 +43,7 @@ This repository contains **PlantUML templates (`.puml` files)** along with their
 
 ### 5. Deployment Diagrams
 
-[![Deployment Diagram](deployment/plantuml_deployment.svg)](deployment/plantuml_deployment.puml)
+[![Deployment Diagram](deployment/shopping-cart-deployment-diagram.svg)](deployment/shopping-cart-deployment-diagram.puml)
 
 **Source Code:** [deployment/plantuml\_deployment.puml](deployment/plantuml_deployment.puml)
 
