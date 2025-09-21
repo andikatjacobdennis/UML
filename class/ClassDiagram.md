@@ -1,218 +1,350 @@
 # UML 2.5.1 Class Diagram Tutorial: Modeling a Shopping Cart System
-This module provides a comprehensive guide to creating a Class Diagram adhering to UML 2.5.1 standards (as defined by the Object Management Group specification, formal/2017-12-05, dated December 2017). Using the **shopping cart system** as a practical example, Class Diagrams model the static structure of a system, defining classes, their attributes, operations, and relationships. This tutorial builds on the prior Use Case and Activity Diagram modules and is designed for developers, analysts, and designers seeking to document and design the system's data and behavior.
+This module provides a comprehensive guide to creating a Class Diagram adhering to UML 2.5.1 standards (as defined by the Object Management Group specification, formal/2017-12-05, dated December 2017). Using the **shopping cart system** as a practical example, this tutorial models the system's static structure, incorporating **interfaces**, **realization** relationships, and reviewer feedback to define contracts for key behaviors. Class Diagrams model classes, attributes, operations, and relationships, building on the prior Use Case, Activity, and Class Diagram modules. This tutorial is designed for developers, analysts, and designers to document and design the system's data and behavior effectively.
 
-**Pro Tip:** Refer to the UML 2.5.1 specification at [https://www.omg.org/spec/UML/](https://www.omg.org/spec/UML/) for detailed insights into advanced constructs like stereotypes and tagged values to enhance modeling precision.
+**Pro Tip:** Refer to the UML 2.5.1 specification at [https://www.omg.org/spec/UML/](https://www.omg.org/spec/UML/) for detailed insights into interfaces, realization, abstract classes, and enums to ensure modeling precision.
 
 ---
 
-## Introduction to Class Diagrams
-Class Diagrams in UML 2.5.1 depict the static structure of a system by defining classes, their attributes, operations, and relationships (e.g., association, inheritance, composition). They are essential for designing the data model and behavior, bridging the gap between requirements (Use Case Diagram) and dynamic workflows (Activity Diagram). For the shopping cart system, the Class Diagram focuses on entities involved in the checkout process and related functionalities, ensuring alignment with prior UML diagrams.
+## Introduction to Class Diagrams and Interfaces
+Class Diagrams in UML 2.5.1 depict the static structure of a system by defining classes, their attributes, operations, and relationships (e.g., association, inheritance, composition). **Interfaces** specify contracts of operations that classes must implement, promoting modularity. The **realization** relationship (`..|>`) indicates that a class implements an interface’s operations. **Abstract classes** provide shared attributes and operations, while **enums** define fixed sets of values. For the shopping cart system, this diagram incorporates interfaces for payment and inventory management, an abstract `User` class, and enums for order and payment statuses, aligning with the reviewer’s updated structure.
 
 Tools like PlantUML enable programmatic diagram generation, ideal for embedding in documentation, GitHub Markdown files, or wikis.
 
 ---
 
-## Step 0: Transition from Use Case and Activity Diagrams
-To ensure traceability, align the Class Diagram with the prior UML diagrams:
-1. Review the **Use Case Diagram** to identify key entities (e.g., Customer, Guest User, Administrator) and functionalities (e.g., Checkout, Manage Products).
-2. Extract structural elements from the **Activity Diagram** (e.g., Checkout process involves Order, Payment, ShoppingCart).
-3. Map dynamic behaviors (e.g., "Process Payment," "Update Inventory") to class operations.
-This step ensures the Class Diagram reflects the system's functional and behavioral requirements.
+## Step 0: Transition from Prior UML Diagrams
+To ensure traceability, align the Class Diagram with prior UML diagrams and reviewer feedback:
+1. Review the **Use Case Diagram** to identify entities (e.g., Customer, Guest User, Administrator) and functionalities (e.g., Checkout, Manage Products).
+2. Extract structural elements from the **Activity Diagram** (e.g., Checkout involves Order, Payment, ShoppingCart).
+3. Map dynamic behaviors (e.g., "Process Payment," "Validate Inventory") to class operations and interfaces.
+4. Incorporate reviewer changes: abstract `User` class, new classes (`Address`, `PaymentMethod`, `OrderItem`), enums (`OrderStatus`, `PaymentStatus`), and refined attributes/operations.
+5. Retain interfaces (`IPaymentProcessor`, `IInventoryManager`) for modularity.
+This step ensures the diagram reflects functional, behavioral, and structural requirements.
 
 ---
 
 ## Step 1: Analyze System Requirements
-Based on the Use Case and Activity Diagrams for the shopping cart system, identify:
-- **Entities**: Customer, Guest User, Shopping Cart, Item, Product, Order, Payment, Administrator.
+Based on the Use Case, Activity Diagrams, and reviewer’s updates, identify:
+- **Entities**: User (abstract), Customer, Guest User, Administrator, Shopping Cart, Cart Item, Product, Order, Order Item, Payment, Address, Payment Method.
 - **Functionalities**:
-  - Customer: Register, login, manage cart, checkout.
-  - Guest User: Browse and checkout without login.
-  - Shopping Cart: Add/remove items, calculate total.
-  - Order: Finalize cart, process payment, generate order number.
+  - Customer: Register, login, manage cart, place orders, manage addresses and payment methods.
+  - Guest User: Temporary session-based cart, option to convert to Customer.
   - Administrator: Manage products and inventory.
+  - Shopping Cart: Add/remove/update items, calculate total, clear cart.
+  - Order: Finalize cart, process payment, track status.
+  - Payment: Validate and process payments, handle refunds.
 - **Data**:
-  - Customer: ID, name, email, password.
-  - Shopping Cart: Items, total price.
-  - Product: ID, name, price, stock quantity.
-  - Order: ID, date, status.
-  - Payment: Amount, method, status.
-The Class Diagram will model these entities and their interactions to support the checkout process and related operations.
+  - Customer: ID, email, password, addresses, payment methods.
+  - Shopping Cart: Items (as Map), creation/modification dates.
+  - Product: ID, name, price, stock, category.
+  - Order: ID, customer, items, addresses, status, costs.
+  - Payment: ID, amount, method, status, transaction ID.
+- **Interfaces**:
+  - `IPaymentProcessor`: Defines `validatePayment()`, `processPayment()`.
+  - `IInventoryManager`: Defines `checkStock()`, `updateStock()`.
+- **Enums**: `OrderStatus` (e.g., PENDING, CONFIRMED), `PaymentStatus` (e.g., COMPLETED, FAILED).
+The Class Diagram will model these entities, their interactions, and interface implementations.
 
 ---
 
-## Step 2: Identify Classes
-Classes represent key entities with attributes and operations. For the shopping cart system:
-- **Customer**: Manages user data and account actions.
-- **GuestUser**: A specialized Customer for guest checkout.
-- **ShoppingCart**: Handles item management and cart calculations.
-- **Item**: Represents a product in the cart with quantity.
-- **Product**: Stores product details and inventory.
-- **Order**: Captures finalized cart and payment details.
-- **Payment**: Manages payment processing and validation.
-- **Administrator**: Oversees product and inventory management.
+## Step 2: Identify Classes, Interfaces, and Enums
+Classes represent entities, interfaces define contracts, and enums define fixed values:
+- **Classes**:
+  - **User** (abstract): Shared attributes/operations for Customer and Administrator.
+  - **Customer**: Manages user data, cart, orders, addresses, payment methods.
+  - **GuestUser**: Temporary user with session-based cart.
+  - **ShoppingCart**: Manages cart items and calculations.
+  - **CartItem**: Represents a product in the cart with quantity.
+  - **Product**: Stores product details and inventory.
+  - **Order**: Captures finalized cart and payment details.
+  - **OrderItem**: Represents a product in an order.
+  - **Payment**: Manages payment processing and refunds.
+  - **Administrator**: Manages products and inventory.
+  - **Address**: Stores shipping/billing address details.
+  - **PaymentMethod**: Stores payment method details.
+- **Interfaces**:
+  - **IPaymentProcessor**: Specifies payment operations (implemented by Payment).
+  - **IInventoryManager**: Specifies inventory operations (implemented by Product, Administrator).
+- **Enums**:
+  - **OrderStatus**: Defines order states (e.g., PENDING, SHIPPED).
+  - **PaymentStatus**: Defines payment states (e.g., COMPLETED, FAILED).
 
-**Best Practice**: Name classes in singular form (e.g., "Customer" not "Customers") and align with domain terminology.
+**Best Practice**: Use singular class names (e.g., "Customer"), prefix interfaces with "I" (e.g., `IPaymentProcessor`), and use clear enum names.
 
 ---
 
-## Step 3: Define Attributes and Operations
-- **Attributes**: Data fields with types and visibility (`-` for private, `+` for public). Example: `Customer` has `-customerId: String`, `-name: String`.
-- **Operations**: Methods reflecting behaviors from use cases and activities. Example: `ShoppingCart` has `+addItem(item: Item): void`.
-Assign attributes and operations based on the responsibilities identified in the Use Case and Activity Diagrams.
+## Step 3: Define Attributes, Operations, and Interface Operations
+- **Attributes**: Data fields with types and visibility (`-` private, `#` protected, `+` public). Example: `Customer` has `-customerId: String`, `-addresses: List<Address>`.
+- **Operations**: Methods reflecting behaviors. Example: `ShoppingCart` has `+addItem(productId: String, quantity: Integer): Boolean`.
+- **Interface Operations**: Abstract methods. Example: `IPaymentProcessor` has `+processPayment(amount: Double): Boolean`.
+- **Enum Values**: Fixed values for states. Example: `OrderStatus` has `PENDING`, `CONFIRMED`.
 
 ---
 
 ## Step 4: Establish Relationships
-Use UML 2.5.1 relationships to connect classes:
-- **Association**: Solid line indicating interaction (e.g., `Customer "1" -- "0..1" ShoppingCart` means one Customer manages zero or one ShoppingCart).
-- **Generalization**: Solid line with a hollow arrow (`-|>`) for inheritance (e.g., `GuestUser -|> Customer`).
-- **Composition**: Solid diamond arrow (`*--`) for strong ownership (e.g., `ShoppingCart "1" *-- "0..*" Item` means Items are destroyed if the ShoppingCart is deleted).
-- **Aggregation**: Hollow diamond arrow (not used here, as no weak ownership applies).
+Use UML 2.5.1 relationships:
+- **Association**: Solid line for interaction (e.g., `Customer "1" -- "0..1" ShoppingCart`).
+- **Generalization**: Solid line with hollow arrow (`<|--`) for inheritance (e.g., `Customer <|-- User`).
+- **Composition**: Solid diamond arrow (`*--`) for strong ownership (e.g., `ShoppingCart "1" *-- "0..*" CartItem`).
+- **Realization**: Dashed line with hollow arrow (`..|>`) for interface implementation (e.g., `Payment ..|> IPaymentProcessor`).
 - **Dependency**: Dashed arrow (not used, as associations suffice).
-
-**Best Practice**: Use relationships sparingly to maintain diagram clarity.
 
 ---
 
 ## Step 5: Add Multiplicity
-Specify how many instances are involved in relationships:
-- `1`: Exactly one (e.g., `Order "1" --> "1" Payment`).
+Specify instance counts:
+- `1`: Exactly one (e.g., `Order "1" -- "0..1" Payment`).
 - `0..1`: Zero or one (e.g., `Customer "1" -- "0..1" ShoppingCart`).
-- `0..*`: Zero or many (e.g., `ShoppingCart "1" *-- "0..*" Item`).
-Multiplicity ensures precise cardinality in the system design.
+- `0..*`: Zero or many (e.g., `Customer "1" -- "0..*" Order`).
+- `1..*`: One or many (e.g., `Order "1" *-- "1..*" OrderItem`).
 
 ---
 
 ## Step 6: Incorporate Notes
-Add notes to clarify complex relationships or assumptions:
-- Explain `GuestUser`’s limited access (e.g., no login required).
-- Note `Payment`’s interaction with an external gateway.
+Add notes to clarify:
+- `GuestUser`’s session-based nature and conversion option.
+- Interface roles (e.g., `IPaymentProcessor` supports multiple gateways).
+- `Order`’s separation from `ShoppingCart` for data persistence.
 
 ---
 
 ## Step 7: Validate the Diagram
-Review the diagram to ensure:
-- Classes align with use cases (e.g., "Checkout" involves Order, Payment, ShoppingCart).
-- Relationships reflect system behavior (e.g., composition for ShoppingCart-Item).
-- Attributes and operations cover all required data and actions.
-- The diagram adheres to UML 2.5.1 semantics (e.g., correct visibility, multiplicity).
-Iterate based on feedback or evolving requirements.
+Ensure:
+- Classes, interfaces, and enums align with use cases (e.g., "Checkout" involves Order, Payment) and activities (e.g., "Process Payment" maps to `IPaymentProcessor`).
+- Relationships reflect system behavior (e.g., realization for interfaces, composition for CartItem).
+- Attributes and operations cover requirements (e.g., inventory management, payment refunds).
+- UML 2.5.1 compliance (correct visibility, multiplicity, realization).
+Walk through with stakeholders to validate and iterate.
 
 ---
 
-## Step 8: Document Class Descriptions
-Provide detailed narratives for each class in a table format. Below is an example for the `Order` class:
+## Step 8: Document Class and Interface Descriptions
+Below are example descriptions for the `Order` class and `IPaymentProcessor` interface:
 
-| **Class Name** | Order |
-|----------------|-------|
-| **Description** | Represents a finalized purchase, linking a ShoppingCart and Payment, with order details and status. |
-| **Attributes** | `-orderId: String` (unique identifier)<br>`-cart: ShoppingCart` (cart being finalized)<br>`-payment: Payment` (associated payment)<br>`-orderDate: Date` (date of order)<br>`-status: String` (e.g., "Confirmed", "Canceled") |
-| **Operations** | `+generateOrderNumber(): String` (creates unique order ID)<br>`+confirmOrder(): void` (finalizes order after payment) |
-| **Associations** | `Order "1" --> "1" ShoppingCart` (finalizes)<br>`Order "1" --> "1" Payment` (includes) |
-| **Notes** | Created during the checkout process; status updates reflect Activity Diagram flows (e.g., success or cancellation). |
+| **Name** | Order (Class) |
+|----------|---------------|
+| **Description** | Represents a finalized purchase, containing order items, addresses, payment, and status. |
+| **Attributes** | `-orderId: String` (unique identifier)<br>`-customerId: String` (ordering customer)<br>`-items: List<OrderItem>` (ordered products)<br>`-shippingAddress: Address` (delivery address)<br>`-billingAddress: Address` (billing address)<br>`-orderDate: DateTime` (order timestamp)<br>`-status: OrderStatus` (order state)<br>`-totalAmount: Double` (total cost)<br>`-taxAmount: Double` (tax cost)<br>`-shippingCost: Double` (shipping cost) |
+| **Operations** | `+calculateTotal(): Double` (computes total cost)<br>`+confirmOrder(): Boolean` (finalizes order)<br>`+updateStatus(newStatus: OrderStatus): Boolean` (updates order state) |
+| **Associations** | `Order "1" *-- "1..*" OrderItem` (contains)<br>`OrderItem "1" --> "1" Product` (references)<br>`Order "1" -- "0..1" Payment` (has) |
+| **Notes** | Separates from ShoppingCart to preserve transaction data; status uses OrderStatus enum. |
 
-Document other classes (e.g., Customer, ShoppingCart) similarly for a complete reference.
+| **Name** | IPaymentProcessor (Interface) |
+|----------|-----------------------------|
+| **Description** | Defines a contract for payment validation and processing, implemented by Payment. |
+| **Operations** | `+validatePayment(): Boolean` (checks payment validity)<br>`+processPayment(amount: Double): Boolean` (processes payment via gateway) |
+| **Associations** | `Payment ..|> IPaymentProcessor` (realized by Payment) |
+| **Notes** | Supports integration with multiple payment gateways (e.g., credit card, PayPal). |
+
+Document other classes (e.g., Customer, ShoppingCart) and interfaces (e.g., `IInventoryManager`) similarly.
 
 ---
 
 ## Step 9: Example PlantUML Representation
 [![Class Diagram](shopping-cart-class-diagram.svg)](shopping-cart-class-diagram.svg)
 
-Below is a PlantUML script to generate the Class Diagram for the shopping cart system. Use a PlantUML renderer (e.g., [PlantUML Server](http://www.plantuml.com/plantuml)) to visualize it.
+Below is the updated PlantUML script incorporating the reviewer’s changes, including interfaces, abstract class, enums, and new classes.
 
 ```plantuml
 @startuml
 ' Title
 title Shopping Cart System Class Diagram
 
+' Interfaces
+interface IPaymentProcessor {
+  +validatePayment(): Boolean
+  +processPayment(amount: Double): Boolean
+}
+
+interface IInventoryManager {
+  +checkStock(productId: String): Integer
+  +updateStock(productId: String, qty: Integer): Boolean
+}
+
+' Abstract Classes
+abstract class User {
+  -userId: String
+  -email: String
+  #name: String
+  +getProfile(): Map<String, String>
+}
+
 ' Classes
 class Customer {
   -customerId: String
-  -name: String
-  -email: String
   -password: String
-  +register(): void
-  +login(): Boolean
-  +updateProfile(): void
+  -addresses: List<Address>
+  -paymentMethods: List<PaymentMethod>
+  +register(): Boolean
+  +login(password: String): Boolean
+  +updateProfile(updates: Map<String, String>): Boolean
 }
 
 class GuestUser {
-  -email: String
-  +proceedAsGuest(): void
+  -sessionId: String
+  -expiration: DateTime
+  +convertToCustomer(registrationData: Map<String, String>): Customer
 }
 
 class ShoppingCart {
   -cartId: String
-  -items: List<Item>
-  -totalPrice: Double
-  +addItem(item: Item): void
-  +removeItem(item: Item): void
-  +viewCart(): List<Item>
+  -items: Map<String, CartItem>
+  -createdDate: DateTime
+  -lastModified: DateTime
+  +addItem(productId: String, quantity: Integer): Boolean
+  +removeItem(productId: String): Boolean
+  +updateItemQuantity(productId: String, quantity: Integer): Boolean
+  +getItems(): List<CartItem>
   +calculateTotal(): Double
+  +clearCart(): void
 }
 
-class Item {
+class CartItem {
   -itemId: String
-  -product: Product
+  -productId: String
   -quantity: Integer
-  +updateQuantity(qty: Integer): void
-  +getSubtotal(): Double
+  -addedDate: DateTime
+  +updateQuantity(qty: Integer): Boolean
+  +getSubtotal(price: Double): Double
 }
 
 class Product {
   -productId: String
   -name: String
+  -description: String
   -price: Double
   -stockQuantity: Integer
-  +updateStock(qty: Integer): void
-  +getDetails(): String
+  -category: String
+  -isActive: Boolean
+  +updateStock(qty: Integer): Boolean
+  +getDetails(): Map<String, Object>
+  +isAvailable(): Boolean
 }
 
 class Order {
   -orderId: String
-  -cart: ShoppingCart
-  -payment: Payment
-  -orderDate: Date
-  -status: String
-  +generateOrderNumber(): String
-  +confirmOrder(): void
+  -customerId: String
+  -items: List<OrderItem>
+  -shippingAddress: Address
+  -billingAddress: Address
+  -orderDate: DateTime
+  -status: OrderStatus
+  -totalAmount: Double
+  -taxAmount: Double
+  -shippingCost: Double
+  +calculateTotal(): Double
+  +confirmOrder(): Boolean
+  +updateStatus(newStatus: OrderStatus): Boolean
+}
+
+class OrderItem {
+  -orderItemId: String
+  -productId: String
+  -quantity: Integer
+  -unitPrice: Double
+  +getLineTotal(): Double
 }
 
 class Payment {
   -paymentId: String
+  -orderId: String
   -amount: Double
-  -method: String
-  -status: String
-  +processPayment(): Boolean
+  -paymentMethod: String
+  -paymentDate: DateTime
+  -status: PaymentStatus
+  -transactionId: String
+  +processPayment(): PaymentResult
   +validatePayment(): Boolean
+  +refund(amount: Double): Boolean
 }
 
 class Administrator {
   -adminId: String
-  -name: String
-  -email: String
-  +manageProducts(): void
-  +validateInventory(): Boolean
+  -permissions: List<String>
+  +addProduct(productData: Map<String, Object>): Boolean
+  +updateProduct(productId: String, updates: Map<String, Object>): Boolean
+  +deleteProduct(productId: String): Boolean
+  +manageInventory(productId: String, adjustment: Integer): Boolean
+}
+
+class Address {
+  -addressId: String
+  -street: String
+  -city: String
+  -state: String
+  -postalCode: String
+  -country: String
+  +formatAddress(): String
+}
+
+class PaymentMethod {
+  -methodId: String
+  -type: String
+  -details: Map<String, String>
+  +validateDetails(): Boolean
+}
+
+' Enums
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+  REFUNDED
+}
+
+enum PaymentStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+  REFUNDED
+  CANCELLED
 }
 
 ' Relationships
-Customer "1" -- "0..1" ShoppingCart : manages
-GuestUser -|> Customer : inherits
-ShoppingCart "1" *-- "0..*" Item : contains
-Item "1" --> "1" Product : references
-Order "1" --> "1" ShoppingCart : finalizes
-Order "1" --> "1" Payment : includes
-Administrator "1" --> "0..*" Product : manages
+User <|-- Customer
+User <|-- Administrator
+Customer <|-- GuestUser
+Customer "1" -- "0..1" ShoppingCart : owns
+Customer "1" -- "0..*" Order : places
+ShoppingCart "1" *-- "0..*" CartItem : contains
+CartItem "1" --> "1" Product : references
+Order "1" *-- "1..*" OrderItem : contains
+OrderItem "1" --> "1" Product : references
+Order "1" -- "0..1" Payment : has
+Payment ..|> IPaymentProcessor : implements
+Product ..|> IInventoryManager : implements
+Administrator ..|> IInventoryManager : implements
+Customer "1" -- "0..*" Address : has
+Customer "1" -- "0..*" PaymentMethod : uses
 
 ' Notes
-note right of GuestUser
-  GuestUser inherits Customer but
-  does not require login for checkout
+note top of GuestUser
+  Guest users have limited functionality
+  and their cart data expires after a period
+  of inactivity. They can convert to registered
+  customers to preserve their data.
 end note
 
-note right of Payment
-  Validates and processes payment
-  via external gateway
+note right of IPaymentProcessor
+  Defines contract for payment processing,
+  enabling integration with multiple payment
+  gateways (Credit Card, PayPal, etc.)
+end note
+
+note right of IInventoryManager
+  Defines contract for inventory management,
+  implemented by Product and Administrator
+  for centralized stock control
+end note
+
+note right of Order
+  Orders are separate from shopping carts
+  to preserve transaction data even if
+  the original cart is modified or deleted
 end note
 
 @enduml
@@ -225,23 +357,62 @@ To visualize the diagram:
 - Copy the PlantUML script into an online renderer like [PlantUML Server](http://www.plantuml.com/plantuml).
 - Use IDE plugins (e.g., VS Code with PlantUML extension) or a standalone PlantUML JAR.
 The rendered diagram will display:
-- Classes as rectangles with compartments for attributes and operations.
-- Relationships (associations, generalization, composition) as lines with appropriate symbols.
-- Notes clarifying key aspects (e.g., GuestUser’s role, Payment’s external integration).
+- Classes, interfaces, and enums as rectangles, with interfaces marked by `interface` and enums by `enum`.
+- Compartments for attributes and operations.
+- Relationships (associations, generalization, composition, realization) with appropriate symbols.
+- Notes clarifying key aspects (e.g., GuestUser’s role, interface contracts).
 
 ---
 
 ## Step 11: Best Practices and Validation
-- **Alignment**: Ensure classes map to use cases (e.g., "Checkout" involves Order, Payment) and activities (e.g., "Process Payment" maps to Payment class operations).
-- **Clarity**: Keep the diagram uncluttered by focusing on essential classes and relationships.
-- **Completeness**: Verify all attributes and operations cover the system’s requirements (e.g., inventory management, payment validation).
-- **UML 2.5.1 Compliance**: Confirm correct use of visibility (`-`, `+`), multiplicity, and relationship types per the OMG specification.
-Walk through the diagram with stakeholders to validate its accuracy and iterate as needed.
+- **Alignment**: Ensure classes, interfaces, and enums map to use cases (e.g., "Checkout" involves Order, Payment) and activities (e.g., "Process Payment" maps to `IPaymentProcessor`).
+- **Clarity**: Keep the diagram uncluttered by organizing classes logically and using notes for clarity.
+- **Completeness**: Verify all attributes, operations, and interfaces cover requirements (e.g., payment refunds, inventory management).
+- **UML 2.5.1 Compliance**: Confirm correct use of visibility (`-`, `#`, `+`), multiplicity, realization, and enum notation per the OMG specification.
+Walk through with stakeholders to validate accuracy and iterate as needed.
 
 ---
 
 ## Additional Notes
-- **Extensibility**: The diagram can be extended with additional classes (e.g., `Discount` for the "Apply Discount" use case) if requirements evolve.
-- **Integration**: This Class Diagram integrates with the prior Use Case Diagram (defining actors and use cases) and Activity Diagram (detailing the Checkout workflow).
+- **Extensibility**: The diagram can be extended with additional interfaces (e.g., `IDiscountManager` for "Apply Discount") or classes as requirements evolve.
+- **Integration**: This Class Diagram integrates with the prior Use Case Diagram (actors and use cases), Activity Diagram (Checkout workflow), and previous Class Diagram (core entities).
+- **Interfaces and Enums**: `IPaymentProcessor`, `IInventoryManager`, `OrderStatus`, and `PaymentStatus` enhance modularity and clarity.
 - **Tooling**: Use PlantUML for collaborative editing in repositories, or export to SVG/PNG for documentation.
-- 
+
+This tutorial provides a complete blueprint for modeling the shopping cart system’s static structure with interfaces, enums, and reviewer feedback, ready for implementation or further UML modeling (e.g., Sequence Diagrams).
+
+</xaiArtifact>
+
+---
+
+### Explanation of Changes
+- **Incorporated Reviewer Feedback**:
+  - Added abstract `User` class with shared attributes (`userId`, `email`, `name`) and operation (`getProfile()`).
+  - Updated `Customer` with `customerId`, `password`, `addresses`, `paymentMethods`, and refined operations.
+  - Replaced `Item` with `CartItem` and added `OrderItem` for order-specific items.
+  - Added `Address` and `PaymentMethod` classes.
+  - Introduced `OrderStatus` and `PaymentStatus` enums for state management.
+  - Updated `ShoppingCart` to use `Map<String, CartItem>` for items and added `createdDate`, `lastModified`.
+  - Refined `Product` with `description`, `category`, `isActive`, and updated operations.
+  - Updated `Order` with `customerId`, `shippingAddress`, `billingAddress`, `taxAmount`, `shippingCost`.
+  - Updated `Payment` with `orderId`, `paymentDate`, `transactionId`, and `refund()`.
+  - Updated `Administrator` with `permissions` and product management operations.
+- **Interfaces and Realization**:
+  - Retained `IPaymentProcessor` and `IInventoryManager` with updated operations per reviewer (e.g., `checkStock()`, `processPayment(amount: Double)`).
+  - Maintained realization relationships (`Payment ..|> IPaymentProcessor`, `Product ..|> IInventoryManager`, `Administrator ..|> IInventoryManager`).
+- **Relationships**:
+  - Added associations for `Address` and `PaymentMethod` with `Customer`.
+  - Updated composition (`ShoppingCart "1" *-- "0..*" CartItem`, `Order "1" *-- "1..*" OrderItem`).
+  - Updated generalization (`Customer <|-- User`, `Administrator <|-- User`, `GuestUser <|-- Customer`).
+- **Notes**: Incorporated reviewer’s notes for clarity (e.g., GuestUser’s expiration, Order’s separation from ShoppingCart).
+- **Artifact ID**: Reused `bee63a00-29c1-4ee0-970a-aa4342f8963b` as this is an updated version of the prior Class Diagram.
+
+---
+
+### Additional Notes
+- **No Chart Requested**: No chart was requested, so none is generated. If you need a chart (e.g., class relationships), provide details for a Chart.js visualization.
+- **Memory Context**: This builds on your prior UML queries. To manage history, use the book icon to forget chats or disable memory in Data Controls.
+- **xAI Products**: No xAI product queries raised. For Grok 3 or SuperGrok, visit [x.ai/grok](https://x.ai/grok).
+- **Rendering**: Render the PlantUML script at [PlantUML Server](http://www.plantuml.com/plantuml) to generate `shopping-cart-class-diagram.svg`.
+
+---
