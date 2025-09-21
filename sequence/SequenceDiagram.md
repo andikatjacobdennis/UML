@@ -78,13 +78,11 @@ The lifelines, representing objects or actors in the Checkout process, are:
 - `:PaymentMethod` (User Management package).
 - `ExternalPaymentGateway` (external system interacting via `IPaymentProcessor`).
 
-**Note**: The `Administrator` class and its realization of `IInventoryManager` are excluded, as they are not directly involved in the Checkout process.
-
 ---
 
 ## Step 3: Specify Messages and Interactions
 
-The interactions, as defined in the provided PlantUML script, include:
+The interactions, as defined in the updated PlantUML script, include:
 - `:Customer` calls `:ShoppingCart.calculateTotal()` to compute the total cost.
 - `:ShoppingCart` iterates over `:CartItem` in a `loop` to calculate subtotals, invoking `:Product.getDetails()` for pricing information.
 - `:Customer` validates inventory by calling `:Product.IInventoryManager::checkStock()` in a `loop`, with an `alt` fragment to handle stock availability or throw an `InsufficientStockException` (canceling checkout if unavailable).
@@ -136,26 +134,29 @@ Stakeholders should review the diagram to confirm its accuracy and completeness.
 
 ## Step 7: PlantUML Representation
 
-The following PlantUML script defines the Sequence Diagram for the Checkout process, modeling interactions among `:Customer`, `:ShoppingCart`, `:CartItem`, `:Product`, `:Order`, `:OrderItem`, `:Payment`, `:Address`, `:PaymentMethod`, and `ExternalPaymentGateway`.
+The following PlantUML script defines the Sequence Diagram for the Checkout process:
 
 ```plantuml
 @startuml
-' Title
-title Shopping Cart System - Checkout Sequence Diagram
+title Shopping Cart System — Checkout UML 2.5 Sequence Diagram
 
-' Actors and Objects
-actor ":Customer" as Customer
-participant ":ShoppingCart" as ShoppingCart
-participant ":CartItem" as CartItem
-participant ":Product" as Product
-participant ":Order" as Order
-participant ":OrderItem" as OrderItem
-participant ":Payment" as Payment
-participant ":Address" as Address
-participant ":PaymentMethod" as PaymentMethod
-participant "ExternalPaymentGateway" as Gateway
+skinparam linetype polyline
+skinparam Shadowing false
+skinparam Padding 10
+skinparam NodePadding 10
+skinparam ComponentPadding 10
 
-' Notes
+actor Customer as ":Customer" <<actor>>
+control ShoppingCart as ":ShoppingCart" <<control>>
+control CartItem as ":CartItem" <<control>>
+entity Product as ":Product" <<entity>>
+control Order as ":Order" <<control>>
+control OrderItem as ":OrderItem" <<control>>
+control Payment as ":Payment" <<control>>
+entity Address as ":Address" <<entity>>
+control PaymentMethod as ":PaymentMethod" <<control>>
+participant Gateway as "ExternalPaymentGateway" <<external>>
+
 note left of Customer
   Customer can be a registered
   Customer or GuestUser
@@ -169,101 +170,100 @@ note right of Product
   for inventory operations
 end note
 
-' Checkout Process
-Customer -> ShoppingCart: calculateTotal()
+== Step 1: Calculate Total ==
+Customer -> ShoppingCart: (1.1) calculateTotal()
 activate ShoppingCart
 loop for each item
-  ShoppingCart -> CartItem: getSubtotal(price: Double)
+  ShoppingCart -> CartItem: (1.2) getSubtotal(price: Double)
   activate CartItem
-  CartItem -> Product: getDetails()
+  CartItem -> Product: (1.3) getDetails()
   activate Product
-  Product --> CartItem: Map<String, Object>
+  Product --> CartItem: (1.4) Map<String, Object>
   deactivate Product
-  CartItem --> ShoppingCart: Double
+  CartItem --> ShoppingCart: (1.5) Double
   deactivate CartItem
 end
-ShoppingCart --> Customer: total: Double
+ShoppingCart --> Customer: (1.6) total: Double
 deactivate ShoppingCart
 
-' Validate Inventory
+== Step 2: Validate Inventory ==
 loop for each item
-  Customer -> Product: IInventoryManager::checkStock(productId: String)
+  Customer -> Product: (2.1) IInventoryManager::checkStock(productId)
   activate Product
   alt stock available
-    Product --> Customer: stock: Integer
+    Product --> Customer: (2.2) stock: Integer
   else stock unavailable
-    Product --> Customer: throw InsufficientStockException
-    Customer --> Customer: cancel checkout
+    Product --> Customer: (2.3) throw InsufficientStockException
+    Customer --> Customer: (2.4) cancel checkout
     return
   end
   deactivate Product
 end
 
-' Create Order
-Customer -> Order: create(customerId, items, shippingAddress, billingAddress)
+== Step 3: Create Order ==
+Customer -> Order: (3.1) create(customerId, items, shippingAddress, billingAddress)
 activate Order
-Order -> Address: formatAddress() [shipping]
+Order -> Address: (3.2) formatAddress() [shipping]
 activate Address
-Address --> Order: formattedAddress: String
+Address --> Order: (3.3) formattedAddress
 deactivate Address
-Order -> Address: formatAddress() [billing]
+Order -> Address: (3.4) formatAddress() [billing]
 activate Address
-Address --> Order: formattedAddress: String
+Address --> Order: (3.5) formattedAddress
 deactivate Address
 loop for each cart item
-  Order -> OrderItem: create(productId, quantity, unitPrice)
+  Order -> OrderItem: (3.6) create(productId, quantity, unitPrice)
   activate OrderItem
-  OrderItem -> Product: getDetails()
+  OrderItem -> Product: (3.7) getDetails()
   activate Product
-  Product --> OrderItem: Map<String, Object>
+  Product --> OrderItem: (3.8) Map<String, Object>
   deactivate Product
-  OrderItem --> Order: orderItem
+  OrderItem --> Order: (3.9) orderItem
   deactivate OrderItem
 end
-Order --> Customer: orderId: String
+Order --> Customer: (3.10) orderId: String
 deactivate Order
 
-' Process Payment
-Customer -> Payment: validatePayment()
+== Step 4: Validate Payment ==
+Customer -> Payment: (4.1) validatePayment()
 activate Payment
-Payment -> PaymentMethod: validateDetails()
+Payment -> PaymentMethod: (4.2) validateDetails()
 activate PaymentMethod
-PaymentMethod --> Payment: isValid: Boolean
+PaymentMethod --> Payment: (4.3) isValid: Boolean
 deactivate PaymentMethod
 alt payment details valid
-  Payment --> Customer: true
+  Payment --> Customer: (4.4) true
 else payment details invalid
-  Payment --> Customer: false
-  Customer -> Order: updateStatus(OrderStatus::CANCELLED)
+  Payment --> Customer: (4.5) false
+  Customer -> Order: (4.6) updateStatus(OrderStatus::CANCELLED)
   return
 end
 deactivate Payment
 
-Customer -> Payment: IPaymentProcessor::processPayment(amount: Double)
+== Step 5: Process Payment ==
+Customer -> Payment: (5.1) IPaymentProcessor::processPayment(amount)
 activate Payment
-Payment -> Gateway: processTransaction(amount: Double)
+Payment -> Gateway: (5.2) processTransaction(amount)
 activate Gateway
 alt payment successful
-  Gateway --> Payment: transactionId: String
-  Payment -> Product: IInventoryManager::updateStock(productId, qty)
+  Gateway --> Payment: (5.3) transactionId
+  Payment -> Product: (5.4) IInventoryManager::updateStock(productId, qty)
   activate Product
-  Product --> Payment: success: Boolean
+  Product --> Payment: (5.5) success: Boolean
   deactivate Product
-  Payment --> Customer: PaymentResult { success: true, transactionId }
-  Customer -> Order: updateStatus(OrderStatus::CONFIRMED)
+  Payment --> Customer: (5.6) PaymentResult { success: true, transactionId }
+  Customer -> Order: (5.7) updateStatus(OrderStatus::CONFIRMED)
 else payment failed
-  Gateway --> Payment: throw PaymentFailedException
-  Payment --> Customer: PaymentResult { success: false }
-  Customer -> Order: updateStatus(OrderStatus::CANCELLED)
+  Gateway --> Payment: (5.8) throw PaymentFailedException
+  Payment --> Customer: (5.9) PaymentResult { success: false }
+  Customer -> Order: (5.10) updateStatus(OrderStatus::CANCELLED)
 end
 deactivate Gateway
 deactivate Payment
 
-' Notes
 note right of Order
   Order status updated to CONFIRMED
   or CANCELLED based on payment outcome
 end note
 
 @enduml
-```
