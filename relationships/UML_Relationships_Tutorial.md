@@ -93,7 +93,7 @@ ShoppingCart "1" o-- "1..*" LineItem : contains
 ```
 
 **Diagram:**
-![Aggregation Diagram](placeholder:aggregation.svg)
+![Aggregation Diagram](aggregation.svg)
 
 -----
 
