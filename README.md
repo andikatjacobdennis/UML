@@ -27,7 +27,8 @@ This repository contains **PlantUML templates (`.puml` files)** along with their
 
 ### 3. Class Diagrams
 
-[![Class Diagram](class/plantuml_class.svg)](class/plantuml_class.puml)
+[![Class Diagram](class/shopping-cart-class-diagram.svg)](class/shopping-cart-class-diagram.puml)
+
 **Source Code:** [class/ClassDiagram.md](class/ClassDiagram.md)
 
 ---
