@@ -22,6 +22,9 @@ Customer "1" -- "1" ShoppingCart : has
 @enduml
 ```
 
+**Diagram:**
+![Association Diagram](placeholder:association.svg)
+
 -----
 
 ### 2. Directed Association
@@ -41,6 +44,9 @@ class ShoppingCart
 Order --> ShoppingCart : uses items from
 @enduml
 ```
+
+**Diagram:**
+![Directed Association Diagram](placeholder:directed-association.svg)
 
 -----
 
@@ -84,6 +90,9 @@ ShoppingCart "1" o-- "1..*" LineItem : contains
 @enduml
 ```
 
+**Diagram:**
+![Aggregation Diagram](placeholder:aggregation.svg)
+
 -----
 
 ### 5. Composition
@@ -107,6 +116,9 @@ Order "1" *-- "1..*" OrderLine : consists of
 @enduml
 ```
 
+**Diagram:**
+![Composition Diagram](placeholder:composition.svg)
+
 -----
 
 ### 6. Dependency
@@ -126,6 +138,9 @@ class PaymentGateway
 Checkout .> PaymentGateway : <<uses>>
 @enduml
 ```
+
+**Diagram:**
+![Dependency Diagram](placeholder:dependency.svg)
 
 -----
 
@@ -152,6 +167,9 @@ Product <|-- DigitalProduct
 Product <|-- PhysicalProduct
 @enduml
 ```
+
+**Diagram:**
+![Generalization Diagram](placeholder:generalization.svg)
 
 -----
 
@@ -181,3 +199,6 @@ class ShoppingCart {
 ICart <|.. ShoppingCart
 @enduml
 ```
+
+**Diagram:**
+![Realization Diagram](placeholder:realization.svg)
