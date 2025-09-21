@@ -244,5 +244,4 @@ Walk through the diagram with stakeholders to validate its accuracy and iterate 
 - **Extensibility**: The diagram can be extended with additional classes (e.g., `Discount` for the "Apply Discount" use case) if requirements evolve.
 - **Integration**: This Class Diagram integrates with the prior Use Case Diagram (defining actors and use cases) and Activity Diagram (detailing the Checkout workflow).
 - **Tooling**: Use PlantUML for collaborative editing in repositories, or export to SVG/PNG for documentation.
-
-This tutorial provides a complete blueprint for modeling the shopping cart system’s static structure, ready for implementation or further UML modeling (e.g., Sequence Diagrams).
+- 
