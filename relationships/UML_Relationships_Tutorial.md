@@ -23,7 +23,8 @@ Customer "1" -- "1" ShoppingCart : has
 ```
 
 **Diagram:**
-![Association Diagram](placeholder:association.svg)
+
+![Association Diagram](association.svg)
 
 -----
 
@@ -46,7 +47,8 @@ Order --> ShoppingCart : uses items from
 ```
 
 **Diagram:**
-![Directed Association Diagram](placeholder:directed-association.svg)
+
+![Directed Association Diagram](directed-association.svg)
 
 -----
 
