@@ -256,37 +256,3 @@ end note
 
 @enduml
 ```
-
----
-
-## Step 8: Rendering the Sequence Diagram
-To visualize the diagram:
-- Copy the PlantUML script into an online renderer like [PlantUML Server](http://www.plantuml.com/plantuml).
-- Use IDE plugins (e.g., VS Code with PlantUML extension) or a standalone PlantUML JAR.
-The rendered diagram will display:
-- Lifelines for `:Customer`, `:ShoppingCart`, `:CartItem`, `:Product`, `:Order`, `:OrderItem`, `:Payment`, `:Address`, `:PaymentMethod`, and `ExternalPaymentGateway`.
-- Synchronous (`->`) and return (`-->`) messages.
-- Combined fragments (`loop`, `alt`) for iteration and conditional logic.
-- Interface calls (e.g., `IPaymentProcessor::processPayment()`).
-- Notes clarifying roles and outcomes.
-
----
-
-## Step 9: Best Practices and Validation
-- **Alignment**: Ensure lifelines and messages map to Class Diagram classes/interfaces (e.g., `:Payment` realizes `IPaymentProcessor`) and Activity Diagram workflows (Checkout).
-- **Clarity**: Use clear message names matching class operations (e.g., `calculateTotal()`, `processPayment()`).
-- **Completeness**: Verify all Checkout steps are covered (cart validation, inventory check, order creation, payment processing), as per your manager’s script.
-- **UML 2.5.1 Compliance**: Confirm correct use of lifelines, synchronous/asynchronous messages, combined fragments, and interface notation per the OMG specification.
-- **Manager’s Feedback**: The script matches your manager’s provided version exactly, ensuring fidelity to their recommendations.
-Walk through with stakeholders to validate accuracy and iterate as needed.
-
----
-
-## Additional Notes
-- **Extensibility**: The diagram can be extended for other processes (e.g., Add to Cart, Manage Products) or additional interactions (e.g., discount application).
-- **Integration**: This Sequence Diagram integrates with the Class Diagram (artifact_id: `bee63a00-29c1-4ee0-970a-aa4342f8963b`), Use Case Diagram (Checkout use case), and Activity Diagram (Checkout workflow).
-- **Interfaces**: `IPaymentProcessor` and `IInventoryManager` ensure modularity, aligning with the Class Diagram’s realization relationships.
-- **Tooling**: Use PlantUML for collaborative editing in repositories, or export to SVG/PNG for documentation.
-- **Manager’s Script**: Adopted verbatim, ensuring all specified lifelines, messages, fragments, and notes are included without deviation.
-
-This tutorial provides a complete blueprint for modeling the Checkout process’s dynamic behavior in the shopping cart system, ready for implementation or further UML modeling.
