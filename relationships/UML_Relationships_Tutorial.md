@@ -144,7 +144,7 @@ Checkout .> PaymentGateway : <<uses>>
 ```
 
 **Diagram:**
-![Dependency Diagram](placeholder:dependency.svg)
+![Dependency Diagram](dependency.svg)
 
 -----
 
@@ -173,7 +173,7 @@ Product <|-- PhysicalProduct
 ```
 
 **Diagram:**
-![Generalization Diagram](placeholder:generalization.svg)
+![Generalization Diagram](generalization.svg)
 
 -----
 
@@ -205,4 +205,4 @@ ICart <|.. ShoppingCart
 ```
 
 **Diagram:**
-![Realization Diagram](placeholder:realization.svg)
+![Realization Diagram](realization.svg)
