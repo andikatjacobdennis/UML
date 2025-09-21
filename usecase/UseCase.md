@@ -113,6 +113,9 @@ Document each use case similarly in a table or structured format for clarity, ai
 ---
 
 ## Example: PlantUML Representation
+
+[![Use Case Diagram](use-case-diagram.svg)](use-case-diagram.svg)
+
 Below is a PlantUML script to generate the complete Use Case Diagram for the shopping cart system. Save this as a `.puml` file in your GitHub repository and use a PlantUML renderer to visualize it.
 
 ```plantuml
