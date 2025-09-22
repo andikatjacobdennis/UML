@@ -17,23 +17,23 @@ Associations in UML 2.5.1 (Section 11.5) represent structural relationships betw
 A general structural relationship where instances of one classifier are linked to instances of another. It implies a semantic connection without implying ownership or lifecycle dependency.
 **UML 2.5.1 Semantics**: Associations classify links; each end has a type and multiplicity. If derived, marked with "/". (Pages 241-246)
 
-✅ **Example**: A **Teacher** teaches one or more **Courses**.
+✅ **Example**: A **Professor** teaches one or more **Courses**.
 
-* Courses exist even if a teacher is removed (they can be taught by another teacher).
-* Teachers exist even if a course is canceled.
+* Courses exist even if a Professor is removed (they can be taught by another Professor).
+* Professors exist even if a course is canceled.
 * This is not a whole–part relationship — just a structural link.
 
 **PlantUML Code**:
 
 ```plantuml
 @startuml
-class Teacher {
+class Professor {
   -name: String
 }
 class Course {
   -courseCode: String
 }
-Teacher --> Course : teaches
+Professor --> Course : teaches
 @enduml
 ```
 
