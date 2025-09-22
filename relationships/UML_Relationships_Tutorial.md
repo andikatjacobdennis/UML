@@ -52,7 +52,7 @@ class Library {
 class Book {
   -title: String
 }
-Library "1" --> "0..*" Book : contains
+Library "1" -- "0..*" Book : contains
 
 class Student {
   -studentId: String
