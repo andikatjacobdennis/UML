@@ -204,72 +204,39 @@ House *-- Room : part of (dependent)
 
 ---
 
-## Grouped Summary
-
-1. **Association Relationships**
-
-   * Association: Structural "knows-a / has-a" (bidirectional by default).
-   * Directed Association: Unidirectional navigability.
-   * Multiplicity: Constrains instance counts (e.g., 1, 0..\*, \*).
-
-2. **Inheritance & Implementation**
-
-   * Generalization: Taxonomic "is-a" inheritance.
-   * Realization: Contractual "implements" for interfaces.
-
-3. **Dependency & Containment**
-
-   * Dependency: Weak "uses-a" reliance.
-   * Aggregation: Shared "has-a" (whole–part, but independent lifecycle).
-   * Composition: Owned "part-of" (whole–part, dependent lifecycle).
-
----
-
-## Combined University System Diagram
-
-This example integrates all relationships in a University System (inspired by spec examples in Sections 7-11).
+## Flowchart Diagram
 
 **PlantUML Code**:
 
 ```plantuml
 @startuml
-class University {
-  -name: String
-}
-class Department {
-  -deptId: String
-}
-University "1" --> "*" Department : contains
-
-class Professor {
-  -name: String
-}
-class Student {
-  -studentId: String
-}
-class Course {
-  -courseCode: String
-}
-Student "*" --> "*" Course : enrolls in
-' Professors teach Courses (Association)
-Professor "*" -- "*" Course : teaches
-class Person {
-  -name: String
-}
-Professor --|> Person : is a
-
-interface Teach {
-  +deliverLecture()
-}
-Professor ..|> Teach : implements
-
-class LibraryService {
-  +borrowBook()
-}
-Student ..> LibraryService : uses
-
-Department o-- Professor : has (independent)
-
-Department *-- Course : part of (dependent)
+start
+:Do you have a "whole-part" relationship?;
+if (Yes) then (Yes)
+  :Does the part depend on the whole's lifecycle?;
+  if (Yes) then (Yes)
+    :Use Composition (*--);
+  else (No)
+    :Use Aggregation (o--);
+  endif
+else (No)
+  :Is it a "uses-a" temporary dependency?;
+  if (Yes) then (Yes)
+    :Use Dependency (..>);
+  else (No)
+    :Is it a taxonomic "is-a" relationship?;
+    if (Yes) then (Yes)
+      :Use Generalization (--|>);
+    else (No)
+      :Is it a contract/interface to implement?;
+      if (Yes) then (Yes)
+        :Use Realization (..|>);
+      else (No)
+        :Use Association (-- or --> with multiplicity);
+      endif
+    endif
+  endif
+endif
+stop
 @enduml
 ```
