@@ -17,7 +17,7 @@ Associations in UML 2.5.1 (Section 11.5) represent structural relationships betw
 A general structural relationship where instances of one classifier are linked to instances of another. It implies a semantic connection without implying ownership or lifecycle dependency.
 **UML 2.5.1 Semantics**: Associations classify links; each end has a type and multiplicity. If derived, marked with "/". (Pages 241-246)
 
-✅ **Example**: A **Professor** teaches one or more **Courses**.
+**Example**: A **Professor** teaches one or more **Courses**.
 
 * Courses exist even if a Professor is removed (they can be taught by another Professor).
 * Professors exist even if a course is canceled.
@@ -157,7 +157,7 @@ Car ..> GPSService : uses
 A whole-part relationship where the part can exist independently of the whole (shared aggregation).
 **UML 2.5.1 Semantics**: AggregationKind::shared; parts have independent lifecycles. (Pages 153-156, 244)
 
-✅ **Example**: A **Library** contains **Books**.
+**Example**: A **Library** contains **Books**.
 
 * A book can exist outside the library (sold in a store, owned privately).
 * Destroying the library does not destroy the books.
@@ -183,7 +183,7 @@ Library o-- Book : contains (independent)
 A strong whole-part relationship where parts are destroyed when the whole is destroyed (composite aggregation).
 **UML 2.5.1 Semantics**: AggregationKind::composite; exclusive ownership, dependent lifecycle. (Pages 153-156, 244)
 
-✅ **Example**: A **House** contains **Rooms**.
+**Example**: A **House** contains **Rooms**.
 
 * A room cannot exist without the house.
 * If the house is destroyed, its rooms are destroyed too.
